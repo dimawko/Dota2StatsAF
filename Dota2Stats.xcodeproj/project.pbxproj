@@ -13,6 +13,7 @@
 		C292AE312800436F00602A16 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C292AE2F2800436F00602A16 /* Main.storyboard */; };
 		C292AE332800437200602A16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C292AE322800437200602A16 /* Assets.xcassets */; };
 		C292AE362800437200602A16 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C292AE342800437200602A16 /* LaunchScreen.storyboard */; };
+		C292AE442800441100602A16 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C292AE432800441100602A16 /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		C292AE322800437200602A16 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C292AE352800437200602A16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C292AE372800437200602A16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C292AE432800441100602A16 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +58,64 @@
 		C292AE282800436F00602A16 /* Dota2Stats */ = {
 			isa = PBXGroup;
 			children = (
-				C292AE292800436F00602A16 /* AppDelegate.swift */,
-				C292AE2B2800436F00602A16 /* SceneDelegate.swift */,
-				C292AE2D2800436F00602A16 /* ViewController.swift */,
-				C292AE2F2800436F00602A16 /* Main.storyboard */,
-				C292AE322800437200602A16 /* Assets.xcassets */,
-				C292AE342800437200602A16 /* LaunchScreen.storyboard */,
-				C292AE372800437200602A16 /* Info.plist */,
+				C292AE422800440100602A16 /* Services */,
+				C292AE41280043F600602A16 /* Models */,
+				C292AE3E280043CF00602A16 /* ViewControllers */,
+				C292AE3F280043D600602A16 /* Storyboards */,
+				C292AE40280043DA00602A16 /* Resources */,
+				C292AE3D280043CA00602A16 /* App */,
 			);
 			path = Dota2Stats;
+			sourceTree = "<group>";
+		};
+		C292AE3D280043CA00602A16 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				C292AE292800436F00602A16 /* AppDelegate.swift */,
+				C292AE2B2800436F00602A16 /* SceneDelegate.swift */,
+				C292AE372800437200602A16 /* Info.plist */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		C292AE3E280043CF00602A16 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				C292AE2D2800436F00602A16 /* ViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		C292AE3F280043D600602A16 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				C292AE2F2800436F00602A16 /* Main.storyboard */,
+				C292AE342800437200602A16 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		C292AE40280043DA00602A16 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C292AE322800437200602A16 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C292AE41280043F600602A16 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C292AE422800440100602A16 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C292AE432800441100602A16 /* NetworkManager.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,6 +189,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C292AE442800441100602A16 /* NetworkManager.swift in Sources */,
 				C292AE2E2800436F00602A16 /* ViewController.swift in Sources */,
 				C292AE2A2800436F00602A16 /* AppDelegate.swift in Sources */,
 				C292AE2C2800436F00602A16 /* SceneDelegate.swift in Sources */,
