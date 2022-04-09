@@ -13,7 +13,6 @@ class ProPlayersTableViewController: UITableViewController {
     var proPlayersLimited: [ProPlayer] {
         Array(proPlayers.prefix(20))
     }
-    var avatarImage: UIImage!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +31,7 @@ class ProPlayersTableViewController: UITableViewController {
         cell.proPlayerNicknameLabel.text = proPlayer.personaname
         cell.proPlayerTeamLabel.text = proPlayer.team_name
         NetworkManager.shared.downloadImage(with: proPlayer) { data in
-            let image = UIImage(data: data)
+            let image = self.image(data: data)
             DispatchQueue.main.async {
                 cell.avatarImageView.image = image
             }
@@ -47,6 +46,7 @@ class ProPlayersTableViewController: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let proPlayerInfoVC = segue.destination as? ProPlayerInfoViewController else { return }
+        proPlayerInfoVC.proPlayer = sender as? ProPlayer
     }
     
     func fetchData() {
@@ -58,12 +58,9 @@ class ProPlayersTableViewController: UITableViewController {
         }
     }
     
-    //    func fetchImage(_ proPlayer: ProPlayer) -> UIImage {
-    //        var image = UIImage()
-    //        NetworkManager.shared.downloadImage(with: proPlayer) { data in
-    //            image = UIImage(data: data)!
-    //        }
-    //        return image
-    //    }
+    func image(data: Data?) -> UIImage? {
+        guard let data = data else { return UIImage(systemName: "picture") }
+        return UIImage(data: data)
+    }
 }
 
