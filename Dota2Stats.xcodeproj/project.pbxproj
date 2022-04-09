@@ -13,10 +13,10 @@
 		C292AE332800437200602A16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C292AE322800437200602A16 /* Assets.xcassets */; };
 		C292AE362800437200602A16 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C292AE342800437200602A16 /* LaunchScreen.storyboard */; };
 		C292AE442800441100602A16 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C292AE432800441100602A16 /* NetworkManager.swift */; };
-		C292AE4628004E2F00602A16 /* ProPlayersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C292AE4528004E2F00602A16 /* ProPlayersTableViewController.swift */; };
+		C292AE4628004E2F00602A16 /* PlayersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C292AE4528004E2F00602A16 /* PlayersTableViewController.swift */; };
 		C292AE4828004ED800602A16 /* ProPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C292AE4728004ED800602A16 /* ProPlayer.swift */; };
-		C2B2FF9228016C4F005AED33 /* ProPlayeCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B2FF9128016C4F005AED33 /* ProPlayeCellTableViewCell.swift */; };
-		C2B2FF94280182B8005AED33 /* ProPlayerInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B2FF93280182B8005AED33 /* ProPlayerInfoViewController.swift */; };
+		C2B2FF9228016C4F005AED33 /* ProPlayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B2FF9128016C4F005AED33 /* ProPlayerCell.swift */; };
+		C2B2FF94280182B8005AED33 /* PlayerDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B2FF93280182B8005AED33 /* PlayerDetailsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,10 +28,10 @@
 		C292AE352800437200602A16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C292AE372800437200602A16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C292AE432800441100602A16 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		C292AE4528004E2F00602A16 /* ProPlayersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProPlayersTableViewController.swift; sourceTree = "<group>"; };
+		C292AE4528004E2F00602A16 /* PlayersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersTableViewController.swift; sourceTree = "<group>"; };
 		C292AE4728004ED800602A16 /* ProPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProPlayer.swift; sourceTree = "<group>"; };
-		C2B2FF9128016C4F005AED33 /* ProPlayeCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProPlayeCellTableViewCell.swift; sourceTree = "<group>"; };
-		C2B2FF93280182B8005AED33 /* ProPlayerInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProPlayerInfoViewController.swift; sourceTree = "<group>"; };
+		C2B2FF9128016C4F005AED33 /* ProPlayerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProPlayerCell.swift; sourceTree = "<group>"; };
+		C2B2FF93280182B8005AED33 /* PlayerDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDetailsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,8 +88,8 @@
 		C292AE3E280043CF00602A16 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				C292AE4528004E2F00602A16 /* ProPlayersTableViewController.swift */,
-				C2B2FF93280182B8005AED33 /* ProPlayerInfoViewController.swift */,
+				C292AE4528004E2F00602A16 /* PlayersTableViewController.swift */,
+				C2B2FF93280182B8005AED33 /* PlayerDetailsViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -130,7 +130,7 @@
 		C2B2FF9028016C20005AED33 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				C2B2FF9128016C4F005AED33 /* ProPlayeCellTableViewCell.swift */,
+				C2B2FF9128016C4F005AED33 /* ProPlayerCell.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -208,11 +208,11 @@
 			files = (
 				C292AE442800441100602A16 /* NetworkManager.swift in Sources */,
 				C292AE2A2800436F00602A16 /* AppDelegate.swift in Sources */,
-				C292AE4628004E2F00602A16 /* ProPlayersTableViewController.swift in Sources */,
-				C2B2FF9228016C4F005AED33 /* ProPlayeCellTableViewCell.swift in Sources */,
+				C292AE4628004E2F00602A16 /* PlayersTableViewController.swift in Sources */,
+				C2B2FF9228016C4F005AED33 /* ProPlayerCell.swift in Sources */,
 				C292AE4828004ED800602A16 /* ProPlayer.swift in Sources */,
 				C292AE2C2800436F00602A16 /* SceneDelegate.swift in Sources */,
-				C2B2FF94280182B8005AED33 /* ProPlayerInfoViewController.swift in Sources */,
+				C2B2FF94280182B8005AED33 /* PlayerDetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,16 +7,18 @@
 
 import UIKit
 
-class ProPlayeCellTableViewCell: UITableViewCell {
+class ProPlayerCell: UITableViewCell {
 
     @IBOutlet var avatarImageView: UIImageView!
-    @IBOutlet var proPlayerNicknameLabel: UILabel!
-    @IBOutlet var proPlayerTeamLabel: UILabel!
+    @IBOutlet var playerNameLabel: UILabel!
+    @IBOutlet var playerTeamLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
         avatarImageView.layer.cornerRadius = avatarImageView.frame.width / 2
+        avatarImageView.layer.borderWidth = 3
+        avatarImageView.layer.borderColor = UIColor.red.cgColor
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

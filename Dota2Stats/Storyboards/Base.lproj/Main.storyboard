@@ -9,16 +9,16 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Pro Players Table View Controller-->
+        <!--Players Table View Controller-->
         <scene sceneID="OGL-Pf-pUg">
             <objects>
-                <tableViewController id="0Nk-zv-Ung" customClass="ProPlayersTableViewController" customModule="Dota2Stats" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="0Nk-zv-Ung" customClass="PlayersTableViewController" customModule="Dota2Stats" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="8SL-NC-EeQ">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="proPlayerCell" rowHeight="157" id="0fg-wy-UlM" customClass="ProPlayeCellTableViewCell" customModule="Dota2Stats" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="proPlayerCell" rowHeight="157" id="0fg-wy-UlM" customClass="ProPlayerCell" customModule="Dota2Stats" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44.666666030883789" width="428" height="157"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0fg-wy-UlM" id="3On-Tq-G8q">
@@ -62,8 +62,8 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="avatarImageView" destination="vhX-qN-Red" id="mWN-ti-XdT"/>
-                                    <outlet property="proPlayerNicknameLabel" destination="cfH-II-VFX" id="0qh-Xe-LUW"/>
-                                    <outlet property="proPlayerTeamLabel" destination="XN1-bV-9SQ" id="tvf-As-0jP"/>
+                                    <outlet property="playerNameLabel" destination="cfH-II-VFX" id="0qh-Xe-LUW"/>
+                                    <outlet property="playerTeamLabel" destination="XN1-bV-9SQ" id="tvf-As-0jP"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -81,16 +81,16 @@
             </objects>
             <point key="canvasLocation" x="1228.0373831775701" y="32.397408207343418"/>
         </scene>
-        <!--Pro Player Info View Controller-->
+        <!--Player Details View Controller-->
         <scene sceneID="dmW-Sw-zN6">
             <objects>
-                <viewController id="kV4-XZ-AUw" customClass="ProPlayerInfoViewController" customModule="Dota2Stats" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="12" id="kV4-XZ-AUw" customClass="PlayerDetailsViewController" customModule="Dota2Stats" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2xH-CA-9n5">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="4xG-Ec-OmS">
-                                <rect key="frame" x="16" y="331.33333333333331" width="396" height="56.666666666666686"/>
+                                <rect key="frame" x="16" y="331.33333333333331" width="396" height="82"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Gs-OE-0GE">
                                         <rect key="frame" x="0.0" y="0.0" width="396" height="30"/>
@@ -104,10 +104,16 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ss3-SH-tfz">
+                                        <rect key="frame" x="0.0" y="61.666666666666693" width="396" height="20.333333333333336"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                             </stackView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Bmv-rn-Jsc">
-                                <rect key="frame" x="0.0" y="438" width="428" height="454"/>
+                                <rect key="frame" x="0.0" y="463.33333333333326" width="428" height="428.66666666666674"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="qgl-45-bM4">
                                     <size key="itemSize" width="128" height="128"/>
@@ -150,9 +156,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="Kur-9P-3tO"/>
                     <connections>
-                        <outlet property="proPlayerAvatar" destination="a9j-dr-4fy" id="i2P-CH-bYF"/>
-                        <outlet property="proPlayerNameLabel" destination="3Gs-OE-0GE" id="ix1-Em-oMy"/>
-                        <outlet property="proPlayerTeamLabel" destination="alY-eG-z0i" id="Cmo-r6-7uT"/>
+                        <outlet property="avatarImageView" destination="a9j-dr-4fy" id="Fsa-JO-fzi"/>
+                        <outlet property="playerNameLabel" destination="3Gs-OE-0GE" id="ix1-Em-oMy"/>
+                        <outlet property="playerTeamLabel" destination="alY-eG-z0i" id="Cmo-r6-7uT"/>
+                        <outlet property="testLabel" destination="ss3-SH-tfz" id="lFE-zv-lY8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NIN-SF-Pd6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

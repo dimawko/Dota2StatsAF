@@ -7,11 +7,12 @@
 
 import UIKit
 
-class ProPlayersTableViewController: UITableViewController {
+class PlayersTableViewController: UITableViewController {
     
     var proPlayers: [ProPlayer] = []
     var proPlayersLimited: [ProPlayer] {
-        Array(proPlayers.prefix(20))
+//        Array(proPlayers.prefix(50))
+        proPlayers
     }
     
     override func viewDidLoad() {
@@ -26,10 +27,10 @@ class ProPlayersTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "proPlayerCell", for: indexPath) as? ProPlayeCellTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "proPlayerCell", for: indexPath) as? ProPlayerCell else { return UITableViewCell() }
         let proPlayer = proPlayersLimited[indexPath.row]
-        cell.proPlayerNicknameLabel.text = proPlayer.personaname
-        cell.proPlayerTeamLabel.text = proPlayer.team_name
+        cell.playerNameLabel.text = proPlayer.personaname
+        cell.playerTeamLabel.text = proPlayer.team_name
         NetworkManager.shared.downloadImage(with: proPlayer) { data in
             let image = self.image(data: data)
             DispatchQueue.main.async {
@@ -45,8 +46,12 @@ class ProPlayersTableViewController: UITableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let proPlayerInfoVC = segue.destination as? ProPlayerInfoViewController else { return }
+        guard let proPlayerInfoVC = segue.destination as? PlayerDetailsViewController else { return }
         proPlayerInfoVC.proPlayer = sender as? ProPlayer
+        
+        guard let indexPath = tableView.indexPathForSelectedRow else { return }
+        let cell = tableView.cellForRow(at: indexPath) as? ProPlayerCell
+        proPlayerInfoVC.playerAvatar = cell?.avatarImageView.image
     }
     
     func fetchData() {
