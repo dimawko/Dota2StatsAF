@@ -9,23 +9,29 @@
 /* Begin PBXBuildFile section */
 		C292AE2A2800436F00602A16 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C292AE292800436F00602A16 /* AppDelegate.swift */; };
 		C292AE2C2800436F00602A16 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C292AE2B2800436F00602A16 /* SceneDelegate.swift */; };
-		C292AE2E2800436F00602A16 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C292AE2D2800436F00602A16 /* ViewController.swift */; };
 		C292AE312800436F00602A16 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C292AE2F2800436F00602A16 /* Main.storyboard */; };
 		C292AE332800437200602A16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C292AE322800437200602A16 /* Assets.xcassets */; };
 		C292AE362800437200602A16 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C292AE342800437200602A16 /* LaunchScreen.storyboard */; };
 		C292AE442800441100602A16 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C292AE432800441100602A16 /* NetworkManager.swift */; };
+		C292AE4628004E2F00602A16 /* ProPlayersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C292AE4528004E2F00602A16 /* ProPlayersTableViewController.swift */; };
+		C292AE4828004ED800602A16 /* ProPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C292AE4728004ED800602A16 /* ProPlayer.swift */; };
+		C2B2FF9228016C4F005AED33 /* ProPlayeCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B2FF9128016C4F005AED33 /* ProPlayeCellTableViewCell.swift */; };
+		C2B2FF94280182B8005AED33 /* ProPlayerInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B2FF93280182B8005AED33 /* ProPlayerInfoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		C292AE262800436F00602A16 /* Dota2Stats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dota2Stats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C292AE292800436F00602A16 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C292AE2B2800436F00602A16 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C292AE2D2800436F00602A16 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C292AE302800436F00602A16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C292AE322800437200602A16 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C292AE352800437200602A16 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C292AE372800437200602A16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C292AE432800441100602A16 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		C292AE4528004E2F00602A16 /* ProPlayersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProPlayersTableViewController.swift; sourceTree = "<group>"; };
+		C292AE4728004ED800602A16 /* ProPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProPlayer.swift; sourceTree = "<group>"; };
+		C2B2FF9128016C4F005AED33 /* ProPlayeCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProPlayeCellTableViewCell.swift; sourceTree = "<group>"; };
+		C2B2FF93280182B8005AED33 /* ProPlayerInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProPlayerInfoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +64,7 @@
 		C292AE282800436F00602A16 /* Dota2Stats */ = {
 			isa = PBXGroup;
 			children = (
+				C2B2FF9028016C20005AED33 /* Extensions */,
 				C292AE422800440100602A16 /* Services */,
 				C292AE41280043F600602A16 /* Models */,
 				C292AE3E280043CF00602A16 /* ViewControllers */,
@@ -81,7 +88,8 @@
 		C292AE3E280043CF00602A16 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				C292AE2D2800436F00602A16 /* ViewController.swift */,
+				C292AE4528004E2F00602A16 /* ProPlayersTableViewController.swift */,
+				C2B2FF93280182B8005AED33 /* ProPlayerInfoViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -106,6 +114,7 @@
 		C292AE41280043F600602A16 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C292AE4728004ED800602A16 /* ProPlayer.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -116,6 +125,14 @@
 				C292AE432800441100602A16 /* NetworkManager.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		C2B2FF9028016C20005AED33 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C2B2FF9128016C4F005AED33 /* ProPlayeCellTableViewCell.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -190,9 +207,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C292AE442800441100602A16 /* NetworkManager.swift in Sources */,
-				C292AE2E2800436F00602A16 /* ViewController.swift in Sources */,
 				C292AE2A2800436F00602A16 /* AppDelegate.swift in Sources */,
+				C292AE4628004E2F00602A16 /* ProPlayersTableViewController.swift in Sources */,
+				C2B2FF9228016C4F005AED33 /* ProPlayeCellTableViewCell.swift in Sources */,
+				C292AE4828004ED800602A16 /* ProPlayer.swift in Sources */,
 				C292AE2C2800436F00602A16 /* SceneDelegate.swift in Sources */,
+				C2B2FF94280182B8005AED33 /* ProPlayerInfoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
