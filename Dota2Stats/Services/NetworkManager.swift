@@ -32,16 +32,33 @@ class NetworkManager {
         }.resume()
     }
     
-    func fetchImage(with url: String, completion: @escaping (_ image: UIImage)->()) {
+    func fetchImage(with url: String, completion: @escaping (_ data: Data)->()) {
         guard let url = URL(string: url) else { return }
         URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data else {
                 print(error?.localizedDescription ?? "No error description")
                 return
             }
-            guard let image = (UIImage(data: data)) else { return }
-            completion(image)
+            let localdata = data
+            completion(localdata)
         }.resume()
     }
+    
+    func downloadImage(with proPlayer: ProPlayer, completion: @escaping (_ data: Data)->()) {
+        guard let url = URL(string: proPlayer.avatarfull) else { return }
+        URLSession.shared.downloadTask(with: url) { localUrl, _, error in
+            guard let localUrl = localUrl else {
+                print(error?.localizedDescription ?? "No url error description")
+                return
+            }
+            do {
+                let data = try Data(contentsOf: localUrl)
+                completion(data)
+            } catch let error {
+                print(error)
+            }
+        }.resume()
+    }
+    
     private init() {}
 }

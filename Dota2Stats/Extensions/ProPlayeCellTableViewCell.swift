@@ -9,9 +9,14 @@ import UIKit
 
 class ProPlayeCellTableViewCell: UITableViewCell {
 
+    @IBOutlet var avatarImageView: UIImageView!
+    @IBOutlet var proPlayerNicknameLabel: UILabel!
+    @IBOutlet var proPlayerTeamLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        avatarImageView.layer.cornerRadius = avatarImageView.frame.width / 2
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

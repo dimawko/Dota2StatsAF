@@ -18,8 +18,6 @@ class ProPlayersTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.rowHeight = 100
-
         fetchData()
     }
     
@@ -29,17 +27,16 @@ class ProPlayersTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "proPlayerCell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "proPlayerCell", for: indexPath) as? ProPlayeCellTableViewCell else { return UITableViewCell() }
         let proPlayer = proPlayersLimited[indexPath.row]
-        var content = cell.defaultContentConfiguration()
-        fetchImage(proPlayer)
-        content.text = proPlayer.personaname
-        content.textProperties.font = .boldSystemFont(ofSize: 20)
-        content.secondaryText = proPlayer.team_name
-        content.imageProperties.cornerRadius = tableView.rowHeight / 2
-        content.image = avatarImage
-        cell.contentConfiguration = content
-        
+        cell.proPlayerNicknameLabel.text = proPlayer.personaname
+        cell.proPlayerTeamLabel.text = proPlayer.team_name
+        NetworkManager.shared.downloadImage(with: proPlayer) { data in
+            let image = UIImage(data: data)
+            DispatchQueue.main.async {
+                cell.avatarImageView.image = image
+            }
+        }
         return cell
     }
     
@@ -50,7 +47,6 @@ class ProPlayersTableViewController: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let proPlayerInfoVC = segue.destination as? ProPlayerInfoViewController else { return }
-        proPlayerInfoVC.proPlayer = sender as? ProPlayer
     }
     
     func fetchData() {
@@ -62,10 +58,12 @@ class ProPlayersTableViewController: UITableViewController {
         }
     }
     
-    func fetchImage(_ proPlayer: ProPlayer) {
-        NetworkManager.shared.fetchImage(with: proPlayer.avatarfull) { image in
-            self.avatarImage = image
-        }
-    }
+    //    func fetchImage(_ proPlayer: ProPlayer) -> UIImage {
+    //        var image = UIImage()
+    //        NetworkManager.shared.downloadImage(with: proPlayer) { data in
+    //            image = UIImage(data: data)!
+    //        }
+    //        return image
+    //    }
 }
 

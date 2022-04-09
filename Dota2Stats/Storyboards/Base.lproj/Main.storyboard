@@ -18,13 +18,53 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="proPlayerCell" rowHeight="123" id="0fg-wy-UlM">
-                                <rect key="frame" x="0.0" y="44.666666030883789" width="428" height="123"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="proPlayerCell" rowHeight="157" id="0fg-wy-UlM" customClass="ProPlayeCellTableViewCell" customModule="Dota2Stats" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44.666666030883789" width="428" height="157"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0fg-wy-UlM" id="3On-Tq-G8q">
-                                    <rect key="frame" x="0.0" y="0.0" width="428" height="123"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="428" height="157"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vhX-qN-Red">
+                                            <rect key="frame" x="10" y="10" width="100" height="100"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="100" id="0LO-2S-uk0"/>
+                                                <constraint firstAttribute="height" constant="100" id="Zlc-CT-paO"/>
+                                            </constraints>
+                                        </imageView>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="igz-LX-yK7">
+                                            <rect key="frame" x="130" y="11" width="278" height="135"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cfH-II-VFX">
+                                                    <rect key="frame" x="0.0" y="0.0" width="278" height="67.666666666666671"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XN1-bV-9SQ">
+                                                    <rect key="frame" x="0.0" y="67.666666666666686" width="278" height="67.333333333333314"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="vhX-qN-Red" firstAttribute="top" secondItem="3On-Tq-G8q" secondAttribute="top" constant="10" id="OlA-qk-8QC"/>
+                                        <constraint firstItem="igz-LX-yK7" firstAttribute="top" secondItem="3On-Tq-G8q" secondAttribute="topMargin" id="RyP-ua-2Sd"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="igz-LX-yK7" secondAttribute="bottom" id="ZWY-pO-PD5"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="igz-LX-yK7" secondAttribute="trailing" id="jd5-Z6-jqK"/>
+                                        <constraint firstItem="igz-LX-yK7" firstAttribute="leading" secondItem="vhX-qN-Red" secondAttribute="trailing" constant="20" id="lD7-l8-dZs"/>
+                                        <constraint firstAttribute="bottom" secondItem="vhX-qN-Red" secondAttribute="bottom" priority="999" constant="10" id="loU-hq-cY3"/>
+                                        <constraint firstItem="vhX-qN-Red" firstAttribute="leading" secondItem="3On-Tq-G8q" secondAttribute="leading" constant="10" id="zDT-3D-MCO"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="avatarImageView" destination="vhX-qN-Red" id="mWN-ti-XdT"/>
+                                    <outlet property="proPlayerNicknameLabel" destination="cfH-II-VFX" id="0qh-Xe-LUW"/>
+                                    <outlet property="proPlayerTeamLabel" destination="XN1-bV-9SQ" id="tvf-As-0jP"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -39,7 +79,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2hZ-Bu-kfQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1228.985507246377" y="32.8125"/>
+            <point key="canvasLocation" x="1228.0373831775701" y="32.397408207343418"/>
         </scene>
         <!--Pro Player Info View Controller-->
         <scene sceneID="dmW-Sw-zN6">
