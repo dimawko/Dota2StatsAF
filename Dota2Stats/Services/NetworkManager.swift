@@ -19,6 +19,7 @@ class NetworkManager {
     
     func fetchPlayers(completion: @escaping (_ proPlayers: [Player]) -> ()) {
         guard let url = URL(string: Link.proPlayers.rawValue) else { return }
+        
         URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data else {
                 print(error?.localizedDescription ?? "No error description")
@@ -38,6 +39,7 @@ class NetworkManager {
         completion: @escaping (_ data: Data) -> ()
     ) {
         guard let url = URL(string: proPlayer.avatarfull) else { return }
+        
         URLSession.shared.downloadTask(with: url) { localUrl, _, error in
             guard let localUrl = localUrl else {
                 print(error?.localizedDescription ?? "No error description")
@@ -58,6 +60,7 @@ class NetworkManager {
     ) {
         let urlString = "\(Link.playerInfo.rawValue)\(accountId)"
         guard let url = URL(string: urlString) else { return }
+        
         URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data else {
                 print(error?.localizedDescription ?? "No error description")
@@ -78,6 +81,7 @@ class NetworkManager {
     ) {
         let urlString = "\(Link.playerInfo.rawValue)\(accountId)/wl"
         guard let url = URL(string: urlString) else { return }
+        
         URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data else {
                 print(error?.localizedDescription ?? "No error description")
