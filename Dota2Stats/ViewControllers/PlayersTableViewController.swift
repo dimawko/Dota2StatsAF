@@ -11,24 +11,32 @@ class PlayersTableViewController: UITableViewController {
     
     @IBOutlet var searchBar: UISearchBar!
     
+    //MARK: - Public Properties
     var players: [Player] = []
     var filteredPlayers: [Player]!
     
+    let loadingView = UIView()
+    let spinner = UIActivityIndicatorView()
+    let loadingLabel = UILabel()
+    
+    //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setLoadingScreen()
+        
+        getData()
+        
         searchBar.delegate = self
         filteredPlayers = players
-        getData()
-        print(filteredPlayers.count)
-        
     }
 }
 // MARK: - Table view data source
 extension PlayersTableViewController {
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         filteredPlayers.count
-
+        
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -52,6 +60,7 @@ extension PlayersTableViewController {
 }
 //MARK: - Navigation
 extension PlayersTableViewController {
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let proPlayerInfoVC = segue.destination as? PlayerDetailsViewController else { return }
         proPlayerInfoVC.player = sender as? Player
@@ -64,11 +73,13 @@ extension PlayersTableViewController {
 
 //MARK: - Networking
 extension PlayersTableViewController {
+    
     private func getData() {
         NetworkManager.shared.fetchPlayers { proPlayers in
             self.players = proPlayers
             self.filteredPlayers = self.players
             DispatchQueue.main.async {
+                self.removeLoadingScreen()
                 self.tableView.reloadData()
             }
         }
@@ -80,7 +91,9 @@ extension PlayersTableViewController {
     }
 }
 
+//MARK: - Search bar
 extension PlayersTableViewController: UISearchBarDelegate {
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         var filteredPlayersList: [Player] = []
         
@@ -95,6 +108,39 @@ extension PlayersTableViewController: UISearchBarDelegate {
             }
         }
         tableView.reloadData()
+    }
+}
+//MARK: - Loading Screen
+extension PlayersTableViewController {
+    
+    private func setLoadingScreen() {
+        let width: CGFloat = 120
+        let height: CGFloat = 30
+        let x = (tableView.frame.width / 2) - (width / 2)
+        let y = (tableView.frame.height / 2) - (height / 2) - (navigationController?.navigationBar.frame.height)!
+        loadingView.frame = CGRect(x: x, y: y, width: width, height: height)
+        
+        loadingLabel.textColor = .gray
+        loadingLabel.textAlignment = .center
+        loadingLabel.text = "Loading..."
+        loadingLabel.frame = CGRect(x: 0, y: 0, width: 140, height: 30)
+        
+        spinner.style = .medium
+        spinner.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        spinner.startAnimating()
+        
+        loadingView.addSubview(loadingLabel)
+        loadingView.addSubview(spinner)
+       
+        
+        tableView.addSubview(loadingView)
+    }
+    
+    private func removeLoadingScreen() {
+        spinner.stopAnimating()
+        loadingView.isHidden = true
+        spinner.isHidden = true
+        loadingLabel.isHidden = true
     }
 }
 

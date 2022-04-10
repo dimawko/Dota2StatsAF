@@ -13,7 +13,10 @@ enum Link: String {
 }
 
 class NetworkManager {
+    
     static let shared = NetworkManager()
+    
+    private init() {}
     
     func fetchPlayers(completion: @escaping (_ proPlayers: [Player]) -> ()) {
         guard let url = URL(string: Link.proPlayers.rawValue) else { return }
@@ -64,7 +67,7 @@ class NetworkManager {
         }.resume()
     }
     
-    func downloadPlayerWinAndLoses(with accountId: Int, completion: @escaping (_ playerWinAndLoses: PlayerWinsAndLoses) -> ()) {
+    func fetchPlayerWinAndLoses(with accountId: Int, completion: @escaping (_ playerWinAndLoses: PlayerWinsAndLoses) -> ()) {
         let urlString = "\(Link.playerInfo.rawValue)\(accountId)/wl"
         guard let url = URL(string: urlString) else { return }
         URLSession.shared.dataTask(with: url) { data, _, error in
@@ -80,5 +83,4 @@ class NetworkManager {
             }
         }.resume()
     }
-    private init() {}
 }

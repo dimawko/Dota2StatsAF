@@ -22,8 +22,8 @@ class PlayerDetailsViewController: UIViewController {
     @IBOutlet var winsAndLosesLabels: [UILabel]!
     @IBOutlet var rankLabels: [UILabel]!
     
-    @IBOutlet var winsAndLosesActivityIndicators: [UIActivityIndicatorView]!
-    @IBOutlet var rankActivityIndicators: [UIActivityIndicatorView]!
+    @IBOutlet var winsAndLosesSpinners: [UIActivityIndicatorView]!
+    @IBOutlet var rankSpinners: [UIActivityIndicatorView]!
     
     //MARK: - Public Properties
     var player: Player!
@@ -35,8 +35,8 @@ class PlayerDetailsViewController: UIViewController {
         
         topMainView.backgroundColor = UIColor(red: 0.56, green: 0.27, blue: 0.68, alpha: 1.00)
         
-        winsAndLosesActivityIndicators.forEach { $0.hidesWhenStopped = true }
-        rankActivityIndicators.forEach { $0.hidesWhenStopped = true }
+        winsAndLosesSpinners.forEach { $0.hidesWhenStopped = true }
+        rankSpinners.forEach { $0.hidesWhenStopped = true }
         
         setupAvatar()
         setupStatSquareViews()
@@ -48,8 +48,9 @@ class PlayerDetailsViewController: UIViewController {
 }
 
 
-//MARK: - UI Settings
+//MARK: - UI Initial Settings
 extension PlayerDetailsViewController {
+    
     private func setupAvatar() {
         avatarImageView.layer.cornerRadius = avatarImageView.frame.height / 2
         avatarImageView.layer.borderWidth = 4
@@ -89,7 +90,7 @@ extension PlayerDetailsViewController {
 extension PlayerDetailsViewController {
     
     private func getPlayerDetails() {
-        rankActivityIndicators.forEach { $0.startAnimating() }
+        rankSpinners.forEach { $0.startAnimating() }
         NetworkManager.shared.fetchPlayerDetails(with: player.account_id) { playerInfo in
             DispatchQueue.main.async {
                 self.rankLabels.forEach { label in
@@ -108,14 +109,14 @@ extension PlayerDetailsViewController {
                         }
                     }
                 }
-                self.rankActivityIndicators.forEach { $0.stopAnimating() }
+                self.rankSpinners.forEach { $0.stopAnimating() }
             }
         }
     }
      
     private func getPlayerWinAndLoses() {
-        winsAndLosesActivityIndicators.forEach { $0.startAnimating() }
-        NetworkManager.shared.downloadPlayerWinAndLoses(with: player.account_id) { playerWinAndLoses in
+        winsAndLosesSpinners.forEach { $0.startAnimating() }
+        NetworkManager.shared.fetchPlayerWinAndLoses(with: player.account_id) { playerWinAndLoses in
             DispatchQueue.main.async {
                 self.winsAndLosesLabels.forEach { label in
                     switch label.tag {
@@ -133,10 +134,8 @@ extension PlayerDetailsViewController {
                         }
                     }
                 }
-                self.winsAndLosesActivityIndicators.forEach { $0.stopAnimating() }
+                self.winsAndLosesSpinners.forEach { $0.stopAnimating() }
             }
-         
         }
     }
-    
 }

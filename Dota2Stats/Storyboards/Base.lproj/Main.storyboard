@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Players Table View Controller-->
+        <!--Pro player list-->
         <scene sceneID="OGL-Pf-pUg">
             <objects>
                 <tableViewController id="0Nk-zv-Ung" customClass="PlayersTableViewController" customModule="Dota2Stats" customModuleProvider="target" sceneMemberID="viewController">
@@ -76,7 +76,7 @@
                             <outlet property="delegate" destination="0Nk-zv-Ung" id="0BQ-iD-x1Z"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="vMa-bv-Zsr"/>
+                    <navigationItem key="navigationItem" title="Pro player list" id="vMa-bv-Zsr"/>
                     <connections>
                         <outlet property="searchBar" destination="UeE-xa-44z" id="7Zo-YE-rU7"/>
                         <segue destination="kV4-XZ-AUw" kind="presentation" identifier="showProPlayerInfo" modalPresentationStyle="automatic" id="YgS-OQ-uia"/>
@@ -342,10 +342,10 @@
                         <outletCollection property="winsAndLosesLabels" destination="zbN-PO-QSk" collectionClass="NSMutableArray" id="dRZ-L5-5dE"/>
                         <outletCollection property="rankLabels" destination="oAr-K2-y9K" collectionClass="NSMutableArray" id="E2n-Xd-l9L"/>
                         <outletCollection property="rankLabels" destination="gxG-YJ-LUW" collectionClass="NSMutableArray" id="khP-xl-X2P"/>
-                        <outletCollection property="winsAndLosesActivityIndicators" destination="qWW-t6-A5R" collectionClass="NSMutableArray" id="GAx-bM-d6Y"/>
-                        <outletCollection property="winsAndLosesActivityIndicators" destination="IdZ-eQ-mUU" collectionClass="NSMutableArray" id="0Iy-oh-8vd"/>
-                        <outletCollection property="rankActivityIndicators" destination="SN0-s7-N7i" collectionClass="NSMutableArray" id="UoF-zS-nK9"/>
-                        <outletCollection property="rankActivityIndicators" destination="FtH-Xx-6xw" collectionClass="NSMutableArray" id="hvm-Wo-W1z"/>
+                        <outletCollection property="winsAndLosesSpinners" destination="qWW-t6-A5R" collectionClass="NSMutableArray" id="GAx-bM-d6Y"/>
+                        <outletCollection property="winsAndLosesSpinners" destination="IdZ-eQ-mUU" collectionClass="NSMutableArray" id="0Iy-oh-8vd"/>
+                        <outletCollection property="rankSpinners" destination="SN0-s7-N7i" collectionClass="NSMutableArray" id="UoF-zS-nK9"/>
+                        <outletCollection property="rankSpinners" destination="FtH-Xx-6xw" collectionClass="NSMutableArray" id="hvm-Wo-W1z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NIN-SF-Pd6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -357,8 +357,8 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bYC-yT-Xb0" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YvN-Bs-xsf">
-                        <rect key="frame" x="0.0" y="44" width="390" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="YvN-Bs-xsf">
+                        <rect key="frame" x="0.0" y="44" width="390" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
