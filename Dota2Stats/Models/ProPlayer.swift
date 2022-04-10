@@ -17,4 +17,15 @@ struct ProPlayerInfo: Decodable {
     let solo_competitive_rank: Int?
     let competitive_rank: Int?
     let leaderboard_rank: Int?
+    let profile: PlayerProfile?
+}
+
+struct PlayerProfile: Decodable {
+    let last_login: String?
+    let steamid: String?
+}
+
+struct PlayerWinsAndLoses: Decodable {
+    let win: Int?
+    let lose: Int?
 }

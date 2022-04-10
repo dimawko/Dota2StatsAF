@@ -17,6 +17,7 @@
 		C292AE4828004ED800602A16 /* ProPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C292AE4728004ED800602A16 /* ProPlayer.swift */; };
 		C2B2FF9228016C4F005AED33 /* ProPlayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B2FF9128016C4F005AED33 /* ProPlayerCell.swift */; };
 		C2B2FF94280182B8005AED33 /* PlayerDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B2FF93280182B8005AED33 /* PlayerDetailsViewController.swift */; };
+		C2B2FF962802138C005AED33 /* PlayerStatsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B2FF952802138C005AED33 /* PlayerStatsCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		C292AE4728004ED800602A16 /* ProPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProPlayer.swift; sourceTree = "<group>"; };
 		C2B2FF9128016C4F005AED33 /* ProPlayerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProPlayerCell.swift; sourceTree = "<group>"; };
 		C2B2FF93280182B8005AED33 /* PlayerDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDetailsViewController.swift; sourceTree = "<group>"; };
+		C2B2FF952802138C005AED33 /* PlayerStatsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStatsCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				C2B2FF9128016C4F005AED33 /* ProPlayerCell.swift */,
+				C2B2FF952802138C005AED33 /* PlayerStatsCollectionViewCell.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -207,6 +210,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C292AE442800441100602A16 /* NetworkManager.swift in Sources */,
+				C2B2FF962802138C005AED33 /* PlayerStatsCollectionViewCell.swift in Sources */,
 				C292AE2A2800436F00602A16 /* AppDelegate.swift in Sources */,
 				C292AE4628004E2F00602A16 /* PlayersTableViewController.swift in Sources */,
 				C2B2FF9228016C4F005AED33 /* ProPlayerCell.swift in Sources */,

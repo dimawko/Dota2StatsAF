@@ -13,7 +13,6 @@ enum Link: String {
 }
 
 class NetworkManager {
-    
     static let shared = NetworkManager()
     
     func fetchProPlayers(completion: @escaping (_ proPlayers: [ProPlayer]) -> ()) {
@@ -60,6 +59,24 @@ class NetworkManager {
                 let proPlayerInfo = try JSONDecoder().decode(ProPlayerInfo.self, from: data)
                 completion(proPlayerInfo)
                 print(proPlayerInfo)
+            } catch let error {
+                print(error)
+            }
+        }.resume()
+    }
+    
+    func downloadPlayerWinAndLoses(with accountId: Int, completion: @escaping (_ playerWinAndLoses: PlayerWinsAndLoses) -> ()) {
+        let urlString = "https://api.opendota.com/api/players/\(accountId)/wl"
+        guard let url = URL(string: urlString) else { return }
+        URLSession.shared.dataTask(with: url) { data, _, error in
+            guard let data = data else {
+                print(error?.localizedDescription ?? "No error description")
+                return
+            }
+            do {
+                let playerWinAndLoses = try JSONDecoder().decode(PlayerWinsAndLoses.self, from: data)
+                completion(playerWinAndLoses)
+                print(playerWinAndLoses)
             } catch let error {
                 print(error)
             }
