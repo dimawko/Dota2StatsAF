@@ -21,8 +21,6 @@ class PlayersViewController: UIViewController {
     private var players: [Player] = []
     private var filteredPlayers: [Player]!
     
-
-    
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -147,5 +145,3 @@ extension PlayersViewController {
         loadingLabel.isHidden = true
     }
 }
-
-

@@ -52,7 +52,6 @@ class PlayerDetailsViewController: UIViewController {
     }
 }
 
-
 //MARK: - UI Initial Settings
 extension PlayerDetailsViewController {
     
