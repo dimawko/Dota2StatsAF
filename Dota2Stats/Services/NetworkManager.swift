@@ -9,6 +9,7 @@ import Foundation
 
 enum Link: String {
     case proPlayers = "https://api.opendota.com/api/proPlayers"
+    case playerInfo = "https://api.opendota.com/api/players/"
 }
 
 class NetworkManager {
@@ -46,8 +47,8 @@ class NetworkManager {
         }.resume()
     }
     
-    func fetchPlayerDetails(with accountId: Int, completion: @escaping (_ PlayerInfo: PlayerInfo) -> ()) {
-        let urlString = "https://api.opendota.com/api/players/\(accountId)"
+    func fetchPlayerDetails(with accountId: Int, completion: @escaping (_ playerInfo: PlayerInfo) -> ()) {
+        let urlString = "\(Link.playerInfo.rawValue)\(accountId)"
         guard let url = URL(string: urlString) else { return }
         URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data else {
@@ -55,8 +56,8 @@ class NetworkManager {
                 return
             }
             do {
-                let PlayerInfo = try JSONDecoder().decode(PlayerInfo.self, from: data)
-                completion(PlayerInfo)
+                let playerInfo = try JSONDecoder().decode(PlayerInfo.self, from: data)
+                completion(playerInfo)
             } catch let error {
                 print(error)
             }
@@ -64,7 +65,7 @@ class NetworkManager {
     }
     
     func downloadPlayerWinAndLoses(with accountId: Int, completion: @escaping (_ playerWinAndLoses: PlayerWinsAndLoses) -> ()) {
-        let urlString = "https://api.opendota.com/api/players/\(accountId)/wl"
+        let urlString = "\(Link.playerInfo.rawValue)\(accountId)/wl"
         guard let url = URL(string: urlString) else { return }
         URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data else {

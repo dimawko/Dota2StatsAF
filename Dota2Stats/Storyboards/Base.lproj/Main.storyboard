@@ -312,10 +312,10 @@
                         <outletCollection property="statsViews" destination="sWA-Rg-8yC" collectionClass="NSMutableArray" id="zzQ-jK-cTR"/>
                         <outletCollection property="statsViews" destination="eaS-ZR-g32" collectionClass="NSMutableArray" id="zsF-iC-pvT"/>
                         <outletCollection property="statsViews" destination="2KD-uc-TYy" collectionClass="NSMutableArray" id="XD5-0A-3Hh"/>
-                        <outletCollection property="winsAndLosesLabels" destination="P5D-m0-ha6" collectionClass="NSMutableArray" id="ZJy-PH-RXB"/>
-                        <outletCollection property="winsAndLosesLabels" destination="zbN-PO-QSk" collectionClass="NSMutableArray" id="wFs-Of-XLi"/>
-                        <outletCollection property="rankLabels" destination="oAr-K2-y9K" collectionClass="NSMutableArray" id="SNe-Du-Asw"/>
-                        <outletCollection property="rankLabels" destination="gxG-YJ-LUW" collectionClass="NSMutableArray" id="4tY-Yl-FEk"/>
+                        <outletCollection property="winsAndLosesLabels" destination="P5D-m0-ha6" collectionClass="NSMutableArray" id="o61-2F-8vY"/>
+                        <outletCollection property="winsAndLosesLabels" destination="zbN-PO-QSk" collectionClass="NSMutableArray" id="dRZ-L5-5dE"/>
+                        <outletCollection property="rankLabels" destination="oAr-K2-y9K" collectionClass="NSMutableArray" id="E2n-Xd-l9L"/>
+                        <outletCollection property="rankLabels" destination="gxG-YJ-LUW" collectionClass="NSMutableArray" id="khP-xl-X2P"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NIN-SF-Pd6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -38,7 +38,6 @@ class PlayerDetailsViewController: UIViewController {
         
         getPlayerDetails()
         getPlayerWinAndLoses()
-        getPlayerDetails()
     }
 }
 
@@ -82,18 +81,18 @@ extension PlayerDetailsViewController {
 //MARK: - Networking
 extension PlayerDetailsViewController {
     private func getPlayerDetails() {
-        NetworkManager.shared.fetchPlayerDetails(with: player.account_id) { proPlayerInfo in
+        NetworkManager.shared.fetchPlayerDetails(with: player.account_id) { playerInfo in
             DispatchQueue.main.async {
                 self.rankLabels.forEach { label in
                     switch label.tag {
                     case 0:
-                        if let soloRank = proPlayerInfo.solo_competitive_rank {
+                        if let soloRank = playerInfo.solo_competitive_rank {
                             label.text = "\(String(soloRank)) MMR"
                         } else {
                             label.text = "No info"
                         }
                     default:
-                        if let leaderboardRank = proPlayerInfo.leaderboard_rank {
+                        if let leaderboardRank = playerInfo.leaderboard_rank {
                             label.text = "Top \(String(leaderboardRank))"
                         } else {
                             label.text = "No info"
