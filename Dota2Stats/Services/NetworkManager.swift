@@ -15,7 +15,6 @@ enum Link: String {
 class NetworkManager {
     
     static let shared = NetworkManager()
-    
     private init() {}
     
     func fetchPlayers(completion: @escaping (_ proPlayers: [Player]) -> ()) {

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProPlayerCell: UITableViewCell {
+class PlayerCell: UITableViewCell {
 
     @IBOutlet var avatarImageView: UIImageView!
     @IBOutlet var playerNameLabel: UILabel!

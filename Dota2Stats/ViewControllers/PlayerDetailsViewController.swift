@@ -16,11 +16,11 @@ class PlayerDetailsViewController: UIViewController {
     @IBOutlet var playerTeamLabel: UILabel!
     @IBOutlet var playerCountryFlagLabel: UILabel!
     
-    @IBOutlet var statsViews: [UIView]!
-    @IBOutlet var topMainView: UIView!
-    
     @IBOutlet var winsAndLosesLabels: [UILabel]!
     @IBOutlet var rankLabels: [UILabel]!
+    
+    @IBOutlet var statsViews: [UIView]!
+    @IBOutlet var topMainView: UIView!
     
     @IBOutlet var winsAndLosesSpinners: [UIActivityIndicatorView]!
     @IBOutlet var rankSpinners: [UIActivityIndicatorView]!
@@ -35,8 +35,6 @@ class PlayerDetailsViewController: UIViewController {
         
         topMainView.backgroundColor = UIColor(red: 0.56, green: 0.27, blue: 0.68, alpha: 1.00)
         
-        winsAndLosesSpinners.forEach { $0.hidesWhenStopped = true }
-        rankSpinners.forEach { $0.hidesWhenStopped = true }
         
         setupAvatar()
         setupStatSquareViews()
@@ -44,6 +42,9 @@ class PlayerDetailsViewController: UIViewController {
         
         getPlayerDetails()
         getPlayerWinAndLoses()
+        
+        winsAndLosesSpinners.forEach { $0.hidesWhenStopped = true }
+        rankSpinners.forEach { $0.hidesWhenStopped = true }
     }
 }
 
@@ -65,14 +66,13 @@ extension PlayerDetailsViewController {
     }
     
     private func setupStatSquareViews() {
-        statsViews.forEach { view in
-            view.layer.shadowOffset = CGSize(width: 10, height: 10)
-            view.layer.shadowRadius = 5
-            view.layer.shadowOpacity = 0.3
+        statsViews.forEach { statView in
+            statView.layer.shadowOffset = CGSize(width: 10, height: 10)
+            statView.layer.shadowRadius = 5
+            statView.layer.shadowOpacity = 0.3
+            statView.layer.cornerRadius = 20
             
-            view.layer.cornerRadius = 20
-            
-            view.backgroundColor = UIColor(red: 0.61, green: 0.35, blue: 0.71, alpha: 1.00)
+            statView.backgroundColor = UIColor(red: 0.61, green: 0.35, blue: 0.71, alpha: 1.00)
         }
     }
     

@@ -7,40 +7,43 @@
 
 import UIKit
 
-class PlayersTableViewController: UITableViewController {
+class PlayersViewController: UIViewController {
     
+    //MARK: - IBOutlets
     @IBOutlet var searchBar: UISearchBar!
+    @IBOutlet var tableView: UITableView!
     
-    //MARK: - Public Properties
-    var players: [Player] = []
-    var filteredPlayers: [Player]!
+    //MARK: - Private Properties
+    private var players: [Player] = []
+    private var filteredPlayers: [Player]!
     
-    let loadingView = UIView()
-    let spinner = UIActivityIndicatorView()
-    let loadingLabel = UILabel()
+    private let loadingView = UIView()
+    private let spinner = UIActivityIndicatorView()
+    private let loadingLabel = UILabel()
     
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setLoadingScreen()
-        
         getData()
+        
+        tableView.delegate = self
+        tableView.dataSource = self
         
         searchBar.delegate = self
         filteredPlayers = players
     }
 }
-// MARK: - Table view data source
-extension PlayersTableViewController {
+// MARK: - TableView data source
+extension PlayersViewController: UITableViewDelegate, UITableViewDataSource {
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         filteredPlayers.count
-        
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "proPlayerCell", for: indexPath) as? ProPlayerCell else { return UITableViewCell() }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "playerCell", for: indexPath) as? PlayerCell else { return UITableViewCell() }
         let proPlayer = filteredPlayers[indexPath.row]
         cell.playerNameLabel.text = proPlayer.personaname
         cell.playerTeamLabel.text = proPlayer.team_name
@@ -53,26 +56,26 @@ extension PlayersTableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let proPlayer = filteredPlayers[indexPath.row]
-        performSegue(withIdentifier: "showProPlayerInfo", sender: proPlayer)
+        performSegue(withIdentifier: "showPlayerDetails", sender: proPlayer)
     }
 }
 //MARK: - Navigation
-extension PlayersTableViewController {
+extension PlayersViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let proPlayerInfoVC = segue.destination as? PlayerDetailsViewController else { return }
         proPlayerInfoVC.player = sender as? Player
         
         guard let indexPath = tableView.indexPathForSelectedRow else { return }
-        let cell = tableView.cellForRow(at: indexPath) as? ProPlayerCell
-        proPlayerInfoVC.playerAvatar = cell?.avatarImageView.image
+        guard let cell = tableView.cellForRow(at: indexPath) as? PlayerCell else { return }
+        proPlayerInfoVC.playerAvatar = cell.avatarImageView.image
     }
 }
 
 //MARK: - Networking
-extension PlayersTableViewController {
+extension PlayersViewController {
     
     private func getData() {
         NetworkManager.shared.fetchPlayers { proPlayers in
@@ -92,7 +95,7 @@ extension PlayersTableViewController {
 }
 
 //MARK: - Search bar
-extension PlayersTableViewController: UISearchBarDelegate {
+extension PlayersViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         var filteredPlayersList: [Player] = []
@@ -111,13 +114,13 @@ extension PlayersTableViewController: UISearchBarDelegate {
     }
 }
 //MARK: - Loading Screen
-extension PlayersTableViewController {
+extension PlayersViewController {
     
     private func setLoadingScreen() {
         let width: CGFloat = 120
         let height: CGFloat = 30
-        let x = (tableView.frame.width / 2) - (width / 2)
-        let y = (tableView.frame.height / 2) - (height / 2) - (navigationController?.navigationBar.frame.height)!
+        let x = (view.frame.width / 2) - (width / 2)
+        let y = (view.frame.height / 2) - (height / 2) - (navigationController?.navigationBar.frame.height)!
         loadingView.frame = CGRect(x: x, y: y, width: width, height: height)
         
         loadingLabel.textColor = .gray
@@ -132,7 +135,6 @@ extension PlayersTableViewController {
         loadingView.addSubview(loadingLabel)
         loadingView.addSubview(spinner)
        
-        
         tableView.addSubview(loadingView)
     }
     
