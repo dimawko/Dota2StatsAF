@@ -13,19 +13,22 @@ class PlayersViewController: UIViewController {
     @IBOutlet var searchBar: UISearchBar!
     @IBOutlet var tableView: UITableView!
     
+    @IBOutlet var loadingSpinner: UIActivityIndicatorView!
+    @IBOutlet var loadingLabel: UILabel!
+    @IBOutlet var loadingView: UIView!
+    
     //MARK: - Private Properties
     private var players: [Player] = []
     private var filteredPlayers: [Player]!
     
-    private let loadingView = UIView()
-    private let spinner = UIActivityIndicatorView()
-    private let loadingLabel = UILabel()
+
     
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setLoadingScreen()
+        loadingSpinner.startAnimating()
+        
         getData()
         
         tableView.delegate = self
@@ -137,32 +140,10 @@ extension PlayersViewController: UISearchBarDelegate {
 //MARK: - Loading Screen
 extension PlayersViewController {
     
-    private func setLoadingScreen() {
-        let width: CGFloat = 120
-        let height: CGFloat = 30
-        let x = (view.frame.width / 2) - (width / 2)
-        let y = (view.frame.height / 2) - (height / 2) - (navigationController?.navigationBar.frame.height ?? CGFloat(0))
-        loadingView.frame = CGRect(x: x, y: y, width: width, height: height)
-        
-        loadingLabel.textColor = .gray
-        loadingLabel.textAlignment = .center
-        loadingLabel.text = "Loading..."
-        loadingLabel.frame = CGRect(x: 0, y: 0, width: 140, height: 30)
-        
-        spinner.style = .medium
-        spinner.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        spinner.startAnimating()
-        
-        loadingView.addSubview(loadingLabel)
-        loadingView.addSubview(spinner)
-        
-        tableView.addSubview(loadingView)
-    }
-    
     private func removeLoadingScreen() {
-        spinner.stopAnimating()
+        loadingSpinner.stopAnimating()
         loadingView.isHidden = true
-        spinner.isHidden = true
+        loadingSpinner.isHidden = true
         loadingLabel.isHidden = true
     }
 }

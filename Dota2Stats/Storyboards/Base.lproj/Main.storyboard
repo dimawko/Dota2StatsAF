@@ -74,15 +74,44 @@
                                 <rect key="frame" x="0.0" y="88" width="390" height="51"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g6R-X6-lKW">
+                                <rect key="frame" x="95" y="322" width="200" height="200"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="E0x-z0-fbq">
+                                        <rect key="frame" x="27.666666666666671" y="53" width="145" height="194"/>
+                                        <subviews>
+                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Acs-cf-Oay">
+                                                <rect key="frame" x="0.0" y="0.0" width="37" height="194"/>
+                                            </activityIndicatorView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ATB-s5-i2D">
+                                                <rect key="frame" x="40.999999999999986" y="0.0" width="104.00000000000001" height="194"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                <color key="textColor" systemColor="systemGrayColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="E0x-z0-fbq" firstAttribute="top" secondItem="g6R-X6-lKW" secondAttribute="top" constant="53" id="EVU-8H-tWa"/>
+                                    <constraint firstAttribute="width" constant="200" id="Frj-rw-E6b"/>
+                                    <constraint firstItem="E0x-z0-fbq" firstAttribute="centerX" secondItem="g6R-X6-lKW" secondAttribute="centerX" id="KIx-77-i4Q"/>
+                                    <constraint firstAttribute="height" constant="200" id="ode-Qn-zas"/>
+                                    <constraint firstItem="E0x-z0-fbq" firstAttribute="centerY" secondItem="g6R-X6-lKW" secondAttribute="centerY" constant="50" id="voy-Tl-MEA"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Y1P-53-pgk"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Y1P-53-pgk" firstAttribute="trailing" secondItem="g2I-Jt-UPm" secondAttribute="trailing" id="73i-BX-bHX"/>
                             <constraint firstItem="8ZN-pe-rMI" firstAttribute="trailing" secondItem="Y1P-53-pgk" secondAttribute="trailing" id="Kjx-ee-xQq"/>
+                            <constraint firstItem="g6R-X6-lKW" firstAttribute="centerX" secondItem="bbf-8T-7qe" secondAttribute="centerX" id="Ld0-a0-MYT"/>
                             <constraint firstItem="8ZN-pe-rMI" firstAttribute="leading" secondItem="Y1P-53-pgk" secondAttribute="leading" id="SxC-t7-m7q"/>
                             <constraint firstItem="8ZN-pe-rMI" firstAttribute="top" secondItem="g2I-Jt-UPm" secondAttribute="bottom" id="Vam-2Q-dJk"/>
                             <constraint firstItem="8ZN-pe-rMI" firstAttribute="top" secondItem="g2I-Jt-UPm" secondAttribute="bottom" id="aCl-zu-tIf"/>
+                            <constraint firstItem="g6R-X6-lKW" firstAttribute="centerY" secondItem="bbf-8T-7qe" secondAttribute="centerY" id="cQf-Ra-G4o"/>
                             <constraint firstItem="g2I-Jt-UPm" firstAttribute="top" secondItem="Y1P-53-pgk" secondAttribute="top" id="mG7-G3-K5o"/>
                             <constraint firstItem="Y1P-53-pgk" firstAttribute="bottom" secondItem="8ZN-pe-rMI" secondAttribute="bottom" id="oJA-Fv-Oaz"/>
                             <constraint firstItem="g2I-Jt-UPm" firstAttribute="leading" secondItem="Y1P-53-pgk" secondAttribute="leading" id="rlv-rt-apk"/>
@@ -92,6 +121,9 @@
                         <barButtonItem key="backBarButtonItem" title="Back" id="Z28-Xh-p7y"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="loadingLabel" destination="ATB-s5-i2D" id="0RI-0d-trv"/>
+                        <outlet property="loadingSpinner" destination="Acs-cf-Oay" id="Xaq-oR-z1O"/>
+                        <outlet property="loadingView" destination="g6R-X6-lKW" id="XAz-W4-KY1"/>
                         <outlet property="searchBar" destination="g2I-Jt-UPm" id="u3z-el-SlD"/>
                         <outlet property="tableView" destination="8ZN-pe-rMI" id="loU-kd-XFK"/>
                         <segue destination="kV4-XZ-AUw" kind="show" identifier="showPlayerDetails" id="CiI-N1-cWO"/>
@@ -396,6 +428,9 @@
         </systemColor>
         <systemColor name="systemCyanColor">
             <color red="0.19607843137254902" green="0.67843137254901964" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemIndigoColor">
             <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
