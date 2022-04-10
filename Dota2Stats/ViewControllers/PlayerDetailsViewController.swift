@@ -22,6 +22,9 @@ class PlayerDetailsViewController: UIViewController {
     @IBOutlet var winsAndLosesLabels: [UILabel]!
     @IBOutlet var rankLabels: [UILabel]!
     
+    @IBOutlet var winsAndLosesActivityIndicators: [UIActivityIndicatorView]!
+    @IBOutlet var rankActivityIndicators: [UIActivityIndicatorView]!
+    
     //MARK: - Public Properties
     var player: Player!
     var playerAvatar: UIImage!
@@ -32,6 +35,9 @@ class PlayerDetailsViewController: UIViewController {
         
         topMainView.backgroundColor = UIColor(red: 0.56, green: 0.27, blue: 0.68, alpha: 1.00)
         
+        winsAndLosesActivityIndicators.forEach { $0.hidesWhenStopped = true }
+        rankActivityIndicators.forEach { $0.hidesWhenStopped = true }
+        
         setupAvatar()
         setupStatSquareViews()
         setupPlayerLabels()
@@ -40,6 +46,7 @@ class PlayerDetailsViewController: UIViewController {
         getPlayerWinAndLoses()
     }
 }
+
 
 //MARK: - UI Settings
 extension PlayerDetailsViewController {
@@ -80,7 +87,9 @@ extension PlayerDetailsViewController {
 
 //MARK: - Networking
 extension PlayerDetailsViewController {
+    
     private func getPlayerDetails() {
+        rankActivityIndicators.forEach { $0.startAnimating() }
         NetworkManager.shared.fetchPlayerDetails(with: player.account_id) { playerInfo in
             DispatchQueue.main.async {
                 self.rankLabels.forEach { label in
@@ -99,11 +108,13 @@ extension PlayerDetailsViewController {
                         }
                     }
                 }
+                self.rankActivityIndicators.forEach { $0.stopAnimating() }
             }
         }
     }
-    
+     
     private func getPlayerWinAndLoses() {
+        winsAndLosesActivityIndicators.forEach { $0.startAnimating() }
         NetworkManager.shared.downloadPlayerWinAndLoses(with: player.account_id) { playerWinAndLoses in
             DispatchQueue.main.async {
                 self.winsAndLosesLabels.forEach { label in
@@ -122,7 +133,10 @@ extension PlayerDetailsViewController {
                         }
                     }
                 }
+                self.winsAndLosesActivityIndicators.forEach { $0.stopAnimating() }
             }
+         
         }
     }
+    
 }
