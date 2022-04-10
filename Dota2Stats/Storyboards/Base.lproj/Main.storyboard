@@ -16,9 +16,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="UeE-xa-44z">
+                            <rect key="frame" x="0.0" y="0.0" width="390" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="proPlayerCell" rowHeight="157" id="0fg-wy-UlM" customClass="ProPlayerCell" customModule="Dota2Stats" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44.666666030883789" width="390" height="157"/>
+                                <rect key="frame" x="0.0" y="88.666666030883789" width="390" height="157"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0fg-wy-UlM" id="3On-Tq-G8q">
                                     <rect key="frame" x="0.0" y="0.0" width="390" height="157"/>
@@ -73,6 +78,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="vMa-bv-Zsr"/>
                     <connections>
+                        <outlet property="searchBar" destination="UeE-xa-44z" id="7Zo-YE-rU7"/>
                         <segue destination="kV4-XZ-AUw" kind="presentation" identifier="showProPlayerInfo" modalPresentationStyle="automatic" id="YgS-OQ-uia"/>
                     </connections>
                 </tableViewController>
