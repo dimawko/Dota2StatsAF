@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 enum Link: String {
     case proPlayers = "https://api.opendota.com/api/proPlayers"
@@ -15,7 +14,7 @@ enum Link: String {
 class NetworkManager {
     static let shared = NetworkManager()
     
-    func fetchProPlayers(completion: @escaping (_ proPlayers: [ProPlayer]) -> ()) {
+    func fetchPlayers(completion: @escaping (_ proPlayers: [Player]) -> ()) {
         guard let url = URL(string: Link.proPlayers.rawValue) else { return }
         URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data else {
@@ -23,7 +22,7 @@ class NetworkManager {
                 return
             }
             do {
-                let proPlayers = try JSONDecoder().decode([ProPlayer].self, from: data)
+                let proPlayers = try JSONDecoder().decode([Player].self, from: data)
                 completion(proPlayers)
             } catch let error {
                 print(error)
@@ -31,7 +30,7 @@ class NetworkManager {
         }.resume()
     }
     
-    func downloadImage(with proPlayer: ProPlayer, completion: @escaping (_ data: Data) -> ()) {
+    func fetchAvatarImages(with proPlayer: Player, completion: @escaping (_ data: Data) -> ()) {
         guard let url = URL(string: proPlayer.avatarfull) else { return }
         URLSession.shared.downloadTask(with: url) { localUrl, _, error in
             guard let localUrl = localUrl else {
@@ -47,7 +46,7 @@ class NetworkManager {
         }.resume()
     }
     
-    func downloadPlayerDetails(with accountId: Int, completion: @escaping (_ proPlayerInfo: ProPlayerInfo) -> ()) {
+    func fetchPlayerDetails(with accountId: Int, completion: @escaping (_ PlayerInfo: PlayerInfo) -> ()) {
         let urlString = "https://api.opendota.com/api/players/\(accountId)"
         guard let url = URL(string: urlString) else { return }
         URLSession.shared.dataTask(with: url) { data, _, error in
@@ -56,9 +55,8 @@ class NetworkManager {
                 return
             }
             do {
-                let proPlayerInfo = try JSONDecoder().decode(ProPlayerInfo.self, from: data)
-                completion(proPlayerInfo)
-                print(proPlayerInfo)
+                let PlayerInfo = try JSONDecoder().decode(PlayerInfo.self, from: data)
+                completion(PlayerInfo)
             } catch let error {
                 print(error)
             }
@@ -76,7 +74,6 @@ class NetworkManager {
             do {
                 let playerWinAndLoses = try JSONDecoder().decode(PlayerWinsAndLoses.self, from: data)
                 completion(playerWinAndLoses)
-                print(playerWinAndLoses)
             } catch let error {
                 print(error)
             }

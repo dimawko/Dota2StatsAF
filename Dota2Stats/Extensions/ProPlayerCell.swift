@@ -18,13 +18,6 @@ class ProPlayerCell: UITableViewCell {
         
         avatarImageView.layer.cornerRadius = avatarImageView.frame.width / 2
         avatarImageView.layer.borderWidth = 3
-        avatarImageView.layer.borderColor = UIColor.red.cgColor
+        avatarImageView.layer.borderColor = UIColor(red: 0.56, green: 0.27, blue: 0.68, alpha: 1.00).cgColor
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
 }

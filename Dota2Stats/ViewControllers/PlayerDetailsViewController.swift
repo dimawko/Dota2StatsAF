@@ -9,69 +9,118 @@ import UIKit
 
 class PlayerDetailsViewController: UIViewController {
     
-    var proPlayer: ProPlayer!
-    var playerAvatar: UIImage!
-    var proPlayerInfo: ProPlayerInfo!
-    var playerWinAndLoses: PlayerWinsAndLoses!
+    //MARK: - IBOutlets
+    @IBOutlet var avatarImageView: UIImageView!
     
     @IBOutlet var playerNameLabel: UILabel!
     @IBOutlet var playerTeamLabel: UILabel!
-    @IBOutlet var avatarImageView: UIImageView!
-    @IBOutlet var statSquareViews: [UIView]!
-    @IBOutlet var statLabels: [UILabel]!
+    @IBOutlet var playerCountryFlagLabel: UILabel!
     
+    @IBOutlet var statsViews: [UIView]!
+    @IBOutlet var topMainView: UIView!
+    
+    @IBOutlet var winsAndLosesLabels: [UILabel]!
+    @IBOutlet var rankLabels: [UILabel]!
+    
+    //MARK: - Public Properties
+    var player: Player!
+    var playerAvatar: UIImage!
+    
+    //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        playerNameLabel.text = proPlayer.personaname
-        playerTeamLabel.text = proPlayer.team_name
+        topMainView.backgroundColor = UIColor(red: 0.56, green: 0.27, blue: 0.68, alpha: 1.00)
+        
+        setupAvatar()
+        setupStatSquareViews()
+        setupPlayerLabels()
+        
+        getPlayerDetails()
+        getPlayerWinAndLoses()
+        getPlayerDetails()
+    }
+}
+
+//MARK: - UI Settings
+extension PlayerDetailsViewController {
+    private func setupAvatar() {
+        avatarImageView.layer.cornerRadius = avatarImageView.frame.height / 2
+        avatarImageView.layer.borderWidth = 4
+        avatarImageView.layer.borderColor = UIColor.white.cgColor
         avatarImageView.image = playerAvatar
-        
-  
-        
-        fetchPlayerDetails()
-        fetchPlayerWinAndLoses()
-        
-        statSquareViews.forEach({ view in
-            view.layer.shadowOffset = CGSize(width: 10,
-                                             height: 10)
+    }
+    
+    private func setupPlayerLabels() {
+        playerNameLabel.text = player.personaname
+        playerTeamLabel.text = player.team_name
+        playerCountryFlagLabel.text = convertToEmoji(from: player.loccountrycode ?? "")
+    }
+    
+    private func setupStatSquareViews() {
+        statsViews.forEach { view in
+            view.layer.shadowOffset = CGSize(width: 10, height: 10)
             view.layer.shadowRadius = 5
             view.layer.shadowOpacity = 0.3
-        })
-        
-        
+            
+            view.layer.cornerRadius = 20
+            
+            view.backgroundColor = UIColor(red: 0.61, green: 0.35, blue: 0.71, alpha: 1.00)
+        }
     }
     
-    override func viewDidLayoutSubviews() {
-        avatarImageView.layer.cornerRadius = avatarImageView.frame.height / 2
-        avatarImageView.layer.borderWidth = 3
-        avatarImageView.layer.borderColor = UIColor.white.cgColor
-        print(avatarImageView.frame.height, avatarImageView.frame.width)
+    private func convertToEmoji(from country: String) -> String {
+        let baseIndex : UInt32 = 127397
+        var emojiString = ""
+        for scalar in country.uppercased().unicodeScalars {
+            emojiString.unicodeScalars.append(UnicodeScalar(baseIndex + scalar.value)!)
+        }
+        return emojiString
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-   
-    }
-    
-    func fetchPlayerDetails() {
-        NetworkManager.shared.downloadPlayerDetails(with: proPlayer.account_id) { proPlayerInfo in
-            self.proPlayerInfo = proPlayerInfo
+}
+
+//MARK: - Networking
+extension PlayerDetailsViewController {
+    private func getPlayerDetails() {
+        NetworkManager.shared.fetchPlayerDetails(with: player.account_id) { proPlayerInfo in
             DispatchQueue.main.async {
-                
+                self.rankLabels.forEach { label in
+                    switch label.tag {
+                    case 0:
+                        if let soloRank = proPlayerInfo.solo_competitive_rank {
+                            label.text = "\(String(soloRank)) MMR"
+                        } else {
+                            label.text = "No info"
+                        }
+                    default:
+                        if let leaderboardRank = proPlayerInfo.leaderboard_rank {
+                            label.text = "Top \(String(leaderboardRank))"
+                        } else {
+                            label.text = "No info"
+                        }
+                    }
+                }
             }
         }
     }
     
-    func fetchPlayerWinAndLoses() {
-        NetworkManager.shared.downloadPlayerWinAndLoses(with: proPlayer.account_id) { playerWinAndLoses in
-            self.playerWinAndLoses = playerWinAndLoses
+    private func getPlayerWinAndLoses() {
+        NetworkManager.shared.downloadPlayerWinAndLoses(with: player.account_id) { playerWinAndLoses in
             DispatchQueue.main.async {
-                self.statLabels.forEach { label in
+                self.winsAndLosesLabels.forEach { label in
                     switch label.tag {
                     case 0:
-                        label.text = String(playerWinAndLoses.win ?? 0)
+                        if let wins = playerWinAndLoses.win {
+                            label.text = String(wins)
+                        } else {
+                            label.text = "No info"
+                        }
                     default:
-                        label.text = String(playerWinAndLoses.lose ?? 0)
+                        if let loses = playerWinAndLoses.lose {
+                            label.text = String(loses)
+                        } else {
+                            label.text = "No info"
+                        }
                     }
                 }
             }
