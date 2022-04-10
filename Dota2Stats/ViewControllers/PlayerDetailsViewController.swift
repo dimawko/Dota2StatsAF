@@ -33,8 +33,12 @@ class PlayerDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        topMainView.backgroundColor = UIColor(red: 0.56, green: 0.27, blue: 0.68, alpha: 1.00)
-        
+        topMainView.backgroundColor = UIColor(
+            red: 0.56,
+            green: 0.27,
+            blue: 0.68,
+            alpha: 1.00
+        )
         
         setupAvatar()
         setupStatSquareViews()
@@ -72,7 +76,12 @@ extension PlayerDetailsViewController {
             statView.layer.shadowOpacity = 0.3
             statView.layer.cornerRadius = 20
             
-            statView.backgroundColor = UIColor(red: 0.61, green: 0.35, blue: 0.71, alpha: 1.00)
+            statView.backgroundColor = UIColor(
+                red: 0.61,
+                green: 0.35,
+                blue: 0.71,
+                alpha: 1.00
+            )
         }
     }
     
@@ -80,7 +89,9 @@ extension PlayerDetailsViewController {
         let baseIndex : UInt32 = 127397
         var emojiString = ""
         for scalar in country.uppercased().unicodeScalars {
-            emojiString.unicodeScalars.append(UnicodeScalar(baseIndex + scalar.value)!)
+            emojiString
+                .unicodeScalars
+                .append(UnicodeScalar(baseIndex + scalar.value)!)
         }
         return emojiString
     }
@@ -91,51 +102,55 @@ extension PlayerDetailsViewController {
     
     private func getPlayerDetails() {
         rankSpinners.forEach { $0.startAnimating() }
-        NetworkManager.shared.fetchPlayerDetails(with: player.account_id) { playerInfo in
-            DispatchQueue.main.async {
-                self.rankLabels.forEach { label in
-                    switch label.tag {
-                    case 0:
-                        if let soloRank = playerInfo.solo_competitive_rank {
-                            label.text = "\(String(soloRank)) MMR"
-                        } else {
-                            label.text = "No info"
-                        }
-                    default:
-                        if let leaderboardRank = playerInfo.leaderboard_rank {
-                            label.text = "Top \(String(leaderboardRank))"
-                        } else {
-                            label.text = "No info"
+        NetworkManager
+            .shared
+            .fetchPlayerDetails(with: player.account_id) { playerInfo in
+                DispatchQueue.main.async {
+                    self.rankLabels.forEach { label in
+                        switch label.tag {
+                        case 0:
+                            if let soloRank = playerInfo.solo_competitive_rank {
+                                label.text = "\(String(soloRank)) MMR"
+                            } else {
+                                label.text = "No info"
+                            }
+                        default:
+                            if let leaderboardRank = playerInfo.leaderboard_rank {
+                                label.text = "Top \(String(leaderboardRank))"
+                            } else {
+                                label.text = "No info"
+                            }
                         }
                     }
+                    self.rankSpinners.forEach { $0.stopAnimating() }
                 }
-                self.rankSpinners.forEach { $0.stopAnimating() }
             }
-        }
     }
-     
+    
     private func getPlayerWinAndLoses() {
         winsAndLosesSpinners.forEach { $0.startAnimating() }
-        NetworkManager.shared.fetchPlayerWinAndLoses(with: player.account_id) { playerWinAndLoses in
-            DispatchQueue.main.async {
-                self.winsAndLosesLabels.forEach { label in
-                    switch label.tag {
-                    case 0:
-                        if let wins = playerWinAndLoses.win {
-                            label.text = String(wins)
-                        } else {
-                            label.text = "No info"
-                        }
-                    default:
-                        if let loses = playerWinAndLoses.lose {
-                            label.text = String(loses)
-                        } else {
-                            label.text = "No info"
+        NetworkManager
+            .shared
+            .fetchPlayerWinAndLoses(with: player.account_id) { playerWinAndLoses in
+                DispatchQueue.main.async {
+                    self.winsAndLosesLabels.forEach { label in
+                        switch label.tag {
+                        case 0:
+                            if let wins = playerWinAndLoses.win {
+                                label.text = String(wins)
+                            } else {
+                                label.text = "No info"
+                            }
+                        default:
+                            if let loses = playerWinAndLoses.lose {
+                                label.text = String(loses)
+                            } else {
+                                label.text = "No info"
+                            }
                         }
                     }
+                    self.winsAndLosesSpinners.forEach { $0.stopAnimating() }
                 }
-                self.winsAndLosesSpinners.forEach { $0.stopAnimating() }
             }
-        }
     }
 }

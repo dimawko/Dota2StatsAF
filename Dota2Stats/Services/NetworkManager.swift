@@ -37,7 +37,7 @@ class NetworkManager {
         guard let url = URL(string: proPlayer.avatarfull) else { return }
         URLSession.shared.downloadTask(with: url) { localUrl, _, error in
             guard let localUrl = localUrl else {
-                print(error?.localizedDescription ?? "No url error description")
+                print(error?.localizedDescription ?? "No error description")
                 return
             }
             do {
@@ -61,7 +61,7 @@ class NetworkManager {
                 let playerInfo = try JSONDecoder().decode(PlayerInfo.self, from: data)
                 completion(playerInfo)
             } catch let error {
-                print(error)
+                print(error.localizedDescription)
             }
         }.resume()
     }
@@ -78,7 +78,7 @@ class NetworkManager {
                 let playerWinAndLoses = try JSONDecoder().decode(PlayerWinsAndLoses.self, from: data)
                 completion(playerWinAndLoses)
             } catch let error {
-                print(error)
+                print(error.localizedDescription)
             }
         }.resume()
     }

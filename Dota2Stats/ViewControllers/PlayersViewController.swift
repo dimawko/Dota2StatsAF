@@ -36,7 +36,7 @@ class PlayersViewController: UIViewController {
         filteredPlayers = players
     }
 }
-// MARK: - TableView data source
+// MARK: - TableView Delegate, DataSource
 extension PlayersViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -44,10 +44,21 @@ extension PlayersViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "playerCell", for: indexPath) as? PlayerCell else { return UITableViewCell() }
+        guard
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: "playerCell",
+                for: indexPath
+            ) as? PlayerCell
+        else {
+            return UITableViewCell()
+            
+        }
+        
         let proPlayer = filteredPlayers[indexPath.row]
+        
         cell.playerNameLabel.text = proPlayer.personaname
         cell.playerTeamLabel.text = proPlayer.team_name
+        
         NetworkManager.shared.fetchAvatarImages(with: proPlayer) { data in
             let image = self.getImage(from: data)
             DispatchQueue.main.async {
@@ -104,7 +115,11 @@ extension PlayersViewController: UISearchBarDelegate {
         
         if searchText.isEmpty {
             filteredPlayers = players
-            searchBar.perform(#selector(self.resignFirstResponder), with: nil, afterDelay: 0.1)
+            searchBar.perform(
+                #selector(self.resignFirstResponder),
+                with: nil,
+                afterDelay: 0.1
+            )
         } else {
             filteredPlayers.forEach { player in
                 if player.personaname.lowercased().contains(searchText.lowercased()) {
@@ -127,7 +142,7 @@ extension PlayersViewController {
         let width: CGFloat = 120
         let height: CGFloat = 30
         let x = (view.frame.width / 2) - (width / 2)
-        let y = (view.frame.height / 2) - (height / 2) - (navigationController?.navigationBar.frame.height)!
+        let y = (view.frame.height / 2) - (height / 2) - (navigationController?.navigationBar.frame.height ?? CGFloat(0))
         loadingView.frame = CGRect(x: x, y: y, width: width, height: height)
         
         loadingLabel.textColor = .gray
@@ -141,7 +156,7 @@ extension PlayersViewController {
         
         loadingView.addSubview(loadingLabel)
         loadingView.addSubview(spinner)
-       
+        
         tableView.addSubview(loadingView)
     }
     
