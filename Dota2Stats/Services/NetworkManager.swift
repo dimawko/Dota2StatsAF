@@ -33,7 +33,10 @@ class NetworkManager {
         }.resume()
     }
     
-    func fetchAvatarImages(with proPlayer: Player, completion: @escaping (_ data: Data) -> ()) {
+    func fetchAvatarImages(
+        with proPlayer: Player,
+        completion: @escaping (_ data: Data) -> ()
+    ) {
         guard let url = URL(string: proPlayer.avatarfull) else { return }
         URLSession.shared.downloadTask(with: url) { localUrl, _, error in
             guard let localUrl = localUrl else {
@@ -49,7 +52,10 @@ class NetworkManager {
         }.resume()
     }
     
-    func fetchPlayerDetails(with accountId: Int, completion: @escaping (_ playerInfo: PlayerInfo) -> ()) {
+    func fetchPlayerDetails(
+        with accountId: Int,
+        completion: @escaping (_ playerInfo: PlayerInfo) -> ()
+    ) {
         let urlString = "\(Link.playerInfo.rawValue)\(accountId)"
         guard let url = URL(string: urlString) else { return }
         URLSession.shared.dataTask(with: url) { data, _, error in
@@ -66,7 +72,10 @@ class NetworkManager {
         }.resume()
     }
     
-    func fetchPlayerWinAndLoses(with accountId: Int, completion: @escaping (_ playerWinAndLoses: PlayerWinsAndLoses) -> ()) {
+    func fetchPlayerWinAndLoses(
+        with accountId: Int,
+        completion: @escaping (_ playerWinAndLoses: PlayerWinsAndLoses) -> ()
+    ) {
         let urlString = "\(Link.playerInfo.rawValue)\(accountId)/wl"
         guard let url = URL(string: urlString) else { return }
         URLSession.shared.dataTask(with: url) { data, _, error in

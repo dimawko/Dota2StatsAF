@@ -51,7 +51,6 @@ extension PlayersViewController: UITableViewDelegate, UITableViewDataSource {
             ) as? PlayerCell
         else {
             return UITableViewCell()
-            
         }
         
         let proPlayer = filteredPlayers[indexPath.row]
