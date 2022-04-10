@@ -70,7 +70,7 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="g2I-Jt-UPm">
+                            <searchBar contentMode="redraw" placeholder="Search by player nickname" translatesAutoresizingMaskIntoConstraints="NO" id="g2I-Jt-UPm">
                                 <rect key="frame" x="0.0" y="88" width="390" height="51"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>

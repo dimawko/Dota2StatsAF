@@ -30,6 +30,7 @@ class PlayersViewController: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.keyboardDismissMode = .onDrag
         
         searchBar.delegate = self
         filteredPlayers = players
@@ -57,6 +58,7 @@ extension PlayersViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        searchBar.endEditing(true)
         let proPlayer = filteredPlayers[indexPath.row]
         performSegue(withIdentifier: "showPlayerDetails", sender: proPlayer)
     }
@@ -94,7 +96,7 @@ extension PlayersViewController {
     }
 }
 
-//MARK: - Search bar
+//MARK: - Search bar delegate
 extension PlayersViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -102,6 +104,7 @@ extension PlayersViewController: UISearchBarDelegate {
         
         if searchText.isEmpty {
             filteredPlayers = players
+            searchBar.perform(#selector(self.resignFirstResponder), with: nil, afterDelay: 0.1)
         } else {
             filteredPlayers.forEach { player in
                 if player.personaname.lowercased().contains(searchText.lowercased()) {
@@ -111,6 +114,10 @@ extension PlayersViewController: UISearchBarDelegate {
             }
         }
         tableView.reloadData()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
     }
 }
 //MARK: - Loading Screen
