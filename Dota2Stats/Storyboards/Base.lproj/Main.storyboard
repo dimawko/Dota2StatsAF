@@ -75,16 +75,16 @@
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g6R-X6-lKW">
-                                <rect key="frame" x="95" y="322" width="200" height="200"/>
+                                <rect key="frame" x="95" y="372" width="200" height="200"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="E0x-z0-fbq">
-                                        <rect key="frame" x="27.666666666666671" y="53" width="145" height="194"/>
+                                        <rect key="frame" x="27.666666666666671" y="53" width="145" height="94"/>
                                         <subviews>
                                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Acs-cf-Oay">
-                                                <rect key="frame" x="0.0" y="0.0" width="37" height="194"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="37" height="94"/>
                                             </activityIndicatorView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ATB-s5-i2D">
-                                                <rect key="frame" x="40.999999999999986" y="0.0" width="104.00000000000001" height="194"/>
+                                                <rect key="frame" x="40.999999999999986" y="0.0" width="104.00000000000001" height="94"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                 <color key="textColor" systemColor="systemGrayColor"/>
                                                 <nil key="highlightedColor"/>
@@ -98,7 +98,7 @@
                                     <constraint firstAttribute="width" constant="200" id="Frj-rw-E6b"/>
                                     <constraint firstItem="E0x-z0-fbq" firstAttribute="centerX" secondItem="g6R-X6-lKW" secondAttribute="centerX" id="KIx-77-i4Q"/>
                                     <constraint firstAttribute="height" constant="200" id="ode-Qn-zas"/>
-                                    <constraint firstItem="E0x-z0-fbq" firstAttribute="centerY" secondItem="g6R-X6-lKW" secondAttribute="centerY" constant="50" id="voy-Tl-MEA"/>
+                                    <constraint firstItem="E0x-z0-fbq" firstAttribute="centerY" secondItem="g6R-X6-lKW" secondAttribute="centerY" id="voy-Tl-MEA"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -111,7 +111,7 @@
                             <constraint firstItem="8ZN-pe-rMI" firstAttribute="leading" secondItem="Y1P-53-pgk" secondAttribute="leading" id="SxC-t7-m7q"/>
                             <constraint firstItem="8ZN-pe-rMI" firstAttribute="top" secondItem="g2I-Jt-UPm" secondAttribute="bottom" id="Vam-2Q-dJk"/>
                             <constraint firstItem="8ZN-pe-rMI" firstAttribute="top" secondItem="g2I-Jt-UPm" secondAttribute="bottom" id="aCl-zu-tIf"/>
-                            <constraint firstItem="g6R-X6-lKW" firstAttribute="centerY" secondItem="bbf-8T-7qe" secondAttribute="centerY" id="cQf-Ra-G4o"/>
+                            <constraint firstItem="g6R-X6-lKW" firstAttribute="centerY" secondItem="bbf-8T-7qe" secondAttribute="centerY" constant="50" id="cQf-Ra-G4o"/>
                             <constraint firstItem="g2I-Jt-UPm" firstAttribute="top" secondItem="Y1P-53-pgk" secondAttribute="top" id="mG7-G3-K5o"/>
                             <constraint firstItem="Y1P-53-pgk" firstAttribute="bottom" secondItem="8ZN-pe-rMI" secondAttribute="bottom" id="oJA-Fv-Oaz"/>
                             <constraint firstItem="g2I-Jt-UPm" firstAttribute="leading" secondItem="Y1P-53-pgk" secondAttribute="leading" id="rlv-rt-apk"/>
