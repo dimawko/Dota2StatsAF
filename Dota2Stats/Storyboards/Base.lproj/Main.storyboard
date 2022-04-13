@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="8ZN-pe-rMI">
-                                <rect key="frame" x="0.0" y="139" width="390" height="671"/>
+                                <rect key="frame" x="0.0" y="88" width="390" height="722"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="playerCell" rowHeight="157" id="KWk-NZ-Jvo" customClass="PlayerCell" customModule="Dota2Stats" customModuleProvider="target">
@@ -70,10 +70,6 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <searchBar contentMode="redraw" placeholder="Search by player nickname" translatesAutoresizingMaskIntoConstraints="NO" id="g2I-Jt-UPm">
-                                <rect key="frame" x="0.0" y="88" width="390" height="51"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g6R-X6-lKW">
                                 <rect key="frame" x="95" y="372" width="200" height="200"/>
                                 <subviews>
@@ -105,16 +101,12 @@
                         <viewLayoutGuide key="safeArea" id="Y1P-53-pgk"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Y1P-53-pgk" firstAttribute="trailing" secondItem="g2I-Jt-UPm" secondAttribute="trailing" id="73i-BX-bHX"/>
                             <constraint firstItem="8ZN-pe-rMI" firstAttribute="trailing" secondItem="Y1P-53-pgk" secondAttribute="trailing" id="Kjx-ee-xQq"/>
                             <constraint firstItem="g6R-X6-lKW" firstAttribute="centerX" secondItem="bbf-8T-7qe" secondAttribute="centerX" id="Ld0-a0-MYT"/>
+                            <constraint firstItem="8ZN-pe-rMI" firstAttribute="top" secondItem="Y1P-53-pgk" secondAttribute="top" id="Q6l-0G-tEE"/>
                             <constraint firstItem="8ZN-pe-rMI" firstAttribute="leading" secondItem="Y1P-53-pgk" secondAttribute="leading" id="SxC-t7-m7q"/>
-                            <constraint firstItem="8ZN-pe-rMI" firstAttribute="top" secondItem="g2I-Jt-UPm" secondAttribute="bottom" id="Vam-2Q-dJk"/>
-                            <constraint firstItem="8ZN-pe-rMI" firstAttribute="top" secondItem="g2I-Jt-UPm" secondAttribute="bottom" id="aCl-zu-tIf"/>
                             <constraint firstItem="g6R-X6-lKW" firstAttribute="centerY" secondItem="bbf-8T-7qe" secondAttribute="centerY" constant="50" id="cQf-Ra-G4o"/>
-                            <constraint firstItem="g2I-Jt-UPm" firstAttribute="top" secondItem="Y1P-53-pgk" secondAttribute="top" id="mG7-G3-K5o"/>
                             <constraint firstItem="Y1P-53-pgk" firstAttribute="bottom" secondItem="8ZN-pe-rMI" secondAttribute="bottom" id="oJA-Fv-Oaz"/>
-                            <constraint firstItem="g2I-Jt-UPm" firstAttribute="leading" secondItem="Y1P-53-pgk" secondAttribute="leading" id="rlv-rt-apk"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Pro players list" id="k4n-Sa-uIo">
@@ -124,7 +116,6 @@
                         <outlet property="loadingLabel" destination="ATB-s5-i2D" id="0RI-0d-trv"/>
                         <outlet property="loadingSpinner" destination="Acs-cf-Oay" id="Xaq-oR-z1O"/>
                         <outlet property="loadingView" destination="g6R-X6-lKW" id="XAz-W4-KY1"/>
-                        <outlet property="searchBar" destination="g2I-Jt-UPm" id="u3z-el-SlD"/>
                         <outlet property="tableView" destination="8ZN-pe-rMI" id="loU-kd-XFK"/>
                         <segue destination="kV4-XZ-AUw" kind="show" identifier="showPlayerDetails" id="CiI-N1-cWO"/>
                     </connections>

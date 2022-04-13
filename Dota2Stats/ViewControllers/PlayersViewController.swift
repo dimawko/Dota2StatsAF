@@ -10,7 +10,7 @@ import UIKit
 class PlayersViewController: UIViewController {
     
     //MARK: - IBOutlets
-    @IBOutlet var searchBar: UISearchBar!
+//    @IBOutlet var searchBar: UISearchBar!
     @IBOutlet var tableView: UITableView!
     
     @IBOutlet var loadingSpinner: UIActivityIndicatorView!
@@ -21,6 +21,16 @@ class PlayersViewController: UIViewController {
     private var players: [Player] = []
     private var filteredPlayers: [Player]!
     
+    private lazy var searchController: UISearchController = {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.delegate = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search player by nickname"
+        searchController.searchBar.showsCancelButton = false
+        return searchController
+    }()
+    
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,13 +39,20 @@ class PlayersViewController: UIViewController {
         
         getData()
         
+        navigationItem.hidesSearchBarWhenScrolling = false
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.keyboardDismissMode = .onDrag
         
-        searchBar.delegate = self
+        setupNavigationBar()
         filteredPlayers = players
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
         
+        searchController.searchBar.text = ""
     }
 }
 // MARK: - TableView Delegate, DataSource
@@ -71,10 +88,10 @@ extension PlayersViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        searchBar.endEditing(true)
         let proPlayer = filteredPlayers[indexPath.row]
         performSegue(withIdentifier: "showPlayerDetails", sender: proPlayer)
         tableView.deselectRow(at: indexPath, animated: true)
+        searchController.searchBar.endEditing(true)
     }
 }
 //MARK: - Navigation
@@ -109,34 +126,6 @@ extension PlayersViewController {
     }
 }
 
-//MARK: - Search bar delegate
-extension PlayersViewController: UISearchBarDelegate {
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        var filteredPlayersList: [Player] = []
-        
-        if searchText.isEmpty {
-            filteredPlayers = players
-            searchBar.perform(
-                #selector(self.resignFirstResponder),
-                with: nil,
-                afterDelay: 0.1
-            )
-        } else {
-            filteredPlayers.forEach { player in
-                if player.personaname!.lowercased().contains(searchText.lowercased()) {
-                    filteredPlayersList.append(player)
-                    filteredPlayers = filteredPlayersList
-                }
-            }
-        }
-        tableView.reloadData()
-    }
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.endEditing(true)
-    }
-}
 //MARK: - Loading Screen
 extension PlayersViewController {
     
@@ -145,5 +134,31 @@ extension PlayersViewController {
         loadingView.isHidden = true
         loadingSpinner.isHidden = true
         loadingLabel.isHidden = true
+    }
+}
+
+//MARK: - Navigation Bar
+extension PlayersViewController {
+    
+    private func setupNavigationBar() {
+         navigationItem.searchController = searchController
+     }
+}
+//MARK: - Search Controller Delegate
+extension PlayersViewController: UISearchResultsUpdating, UISearchControllerDelegate {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        filteredPlayers = []
+        guard let searchText = searchController.searchBar.text else { return }
+        if searchText.isEmpty {
+            filteredPlayers = players
+        } else {
+            players.forEach { player in
+                if player.personaname!.lowercased().contains(searchText.lowercased()) {
+                    filteredPlayers.append(player)
+                }
+            }
+        }
+        tableView.reloadData()
     }
 }
