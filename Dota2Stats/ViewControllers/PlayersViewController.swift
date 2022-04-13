@@ -10,7 +10,6 @@ import UIKit
 class PlayersViewController: UIViewController {
     
     //MARK: - IBOutlets
-//    @IBOutlet var searchBar: UISearchBar!
     @IBOutlet var tableView: UITableView!
     
     @IBOutlet var loadingSpinner: UIActivityIndicatorView!
@@ -21,16 +20,8 @@ class PlayersViewController: UIViewController {
     private var players: [Player] = []
     private var filteredPlayers: [Player]!
     
-    private lazy var searchController: UISearchController = {
-        let searchController = UISearchController(searchResultsController: nil)
-        searchController.searchResultsUpdater = self
-        searchController.delegate = self
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search player by nickname"
-        searchController.searchBar.showsCancelButton = false
-        return searchController
-    }()
-    
+    private var searchController = UISearchController(searchResultsController: nil)
+  
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,13 +30,13 @@ class PlayersViewController: UIViewController {
         
         getData()
         
-        navigationItem.hidesSearchBarWhenScrolling = false
-        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.keyboardDismissMode = .onDrag
         
         setupNavigationBar()
+        setupSearchController()
+        
         filteredPlayers = players
     }
     
@@ -141,11 +132,12 @@ extension PlayersViewController {
 extension PlayersViewController {
     
     private func setupNavigationBar() {
-         navigationItem.searchController = searchController
-     }
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+    }
 }
-//MARK: - Search Controller Delegate
-extension PlayersViewController: UISearchResultsUpdating, UISearchControllerDelegate {
+//MARK: - Search Controller and Search Bar
+extension PlayersViewController: UISearchResultsUpdating, UISearchControllerDelegate, UISearchBarDelegate {
     
     func updateSearchResults(for searchController: UISearchController) {
         filteredPlayers = []
@@ -154,11 +146,43 @@ extension PlayersViewController: UISearchResultsUpdating, UISearchControllerDele
             filteredPlayers = players
         } else {
             players.forEach { player in
-                if player.personaname!.lowercased().contains(searchText.lowercased()) {
-                    filteredPlayers.append(player)
+                if searchController.searchBar.selectedScopeButtonIndex == 0 {
+                    guard let playerName = player.personaname else { return }
+                    if playerName.lowercased().contains(searchText.lowercased()) {
+                        filteredPlayers.append(player)
+                    }
+                } else {
+                    guard let playerTeamName = player.teamName else { return }
+                    if playerTeamName.lowercased().contains(searchText.lowercased()) {
+                        filteredPlayers.append(player)
+                    }
                 }
+                tableView.reloadData()
             }
         }
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        if searchController.searchBar.selectedScopeButtonIndex == 0 {
+            searchController.searchBar.placeholder = "Search player by nickname"
+            
+        } else if searchController.searchBar.selectedScopeButtonIndex == 1 {
+            searchController.searchBar.placeholder = "Search player by team"
+        }
+        searchController.searchBar.text = .none
         tableView.reloadData()
     }
+    
+    private func setupSearchController() {
+        searchController.searchResultsUpdater = self
+        searchController.delegate = self
+        searchController.searchBar.delegate = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.showsCancelButton = false
+        searchController.searchBar.showsScopeBar = true
+        searchController.searchBar.scopeButtonTitles = ["Nickname", "Team"]
+    }
+    
+    
 }
+
