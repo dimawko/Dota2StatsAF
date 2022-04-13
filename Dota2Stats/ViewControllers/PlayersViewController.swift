@@ -144,6 +144,7 @@ extension PlayersViewController: UISearchResultsUpdating, UISearchControllerDele
         guard let searchText = searchController.searchBar.text else { return }
         if searchText.isEmpty {
             filteredPlayers = players
+            tableView.reloadData()
         } else {
             players.forEach { player in
                 if searchController.searchBar.selectedScopeButtonIndex == 0 {
@@ -182,7 +183,4 @@ extension PlayersViewController: UISearchResultsUpdating, UISearchControllerDele
         searchController.searchBar.showsScopeBar = true
         searchController.searchBar.scopeButtonTitles = ["Nickname", "Team"]
     }
-    
-    
 }
-
