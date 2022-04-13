@@ -64,7 +64,7 @@ extension PlayerDetailsViewController {
     
     private func setupPlayerLabels() {
         playerNameLabel.text = player.personaname
-        playerTeamLabel.text = player.team_name
+        playerTeamLabel.text = player.teamName
         playerCountryFlagLabel.text = convertToEmoji(from: player.loccountrycode ?? "")
     }
     
@@ -101,55 +101,63 @@ extension PlayerDetailsViewController {
     
     private func getPlayerDetails() {
         rankSpinners.forEach { $0.startAnimating() }
-        NetworkManager
-            .shared
-            .fetchPlayerDetails(with: player.account_id) { playerInfo in
-                DispatchQueue.main.async {
-                    self.rankLabels.forEach { label in
-                        switch label.tag {
-                        case 0:
-                            if let soloRank = playerInfo.solo_competitive_rank {
-                                label.text = "\(String(soloRank)) MMR"
-                            } else {
-                                label.text = "No info"
-                            }
-                        default:
-                            if let leaderboardRank = playerInfo.leaderboard_rank {
-                                label.text = "Top \(String(leaderboardRank))"
-                            } else {
-                                label.text = "No info"
-                            }
+        guard let accountId = player.accountId else { return }
+        NetworkManager.shared.fetch(dataType: PlayerInfo.self, from: Link.playerInfo.rawValue + String(accountId)) { result in
+            switch result {
+            case .success(let playerInfo):
+                guard let playerInfo = playerInfo else { return }
+                self.rankLabels.forEach { label in
+                    switch label.tag {
+                    case 0:
+                        if let soloRank = playerInfo.soloCompetitiveRank {
+                            label.text = "\(String(soloRank)) MMR"
+                        } else {
+                            label.text = "No info"
+                        }
+                    default:
+                        if let leaderboardRank = playerInfo.leaderboardRank {
+                            label.text = "Top \(String(leaderboardRank))"
+                        } else {
+                            label.text = "No info"
                         }
                     }
-                    self.rankSpinners.forEach { $0.stopAnimating() }
                 }
+                self.rankSpinners.forEach { $0.stopAnimating() }
+            case .failure(let error):
+                print(error)
+                self.rankSpinners.forEach { $0.stopAnimating() }
             }
+        }
     }
     
     private func getPlayerWinAndLoses() {
         winsAndLosesSpinners.forEach { $0.startAnimating() }
-        NetworkManager
-            .shared
-            .fetchPlayerWinAndLoses(with: player.account_id) { playerWinAndLoses in
-                DispatchQueue.main.async {
-                    self.winsAndLosesLabels.forEach { label in
-                        switch label.tag {
-                        case 0:
-                            if let wins = playerWinAndLoses.win {
-                                label.text = String(wins)
-                            } else {
-                                label.text = "No info"
-                            }
-                        default:
-                            if let loses = playerWinAndLoses.lose {
-                                label.text = String(loses)
-                            } else {
-                                label.text = "No info"
-                            }
+        guard let accountId = player.accountId else { return }
+        NetworkManager.shared.fetch(dataType: PlayerWinsAndLoses.self, from: Link.playerInfo.rawValue + String(accountId) + "/wl") { result in
+            switch result {
+            case .success(let playerWinAndLoses):
+                guard let playerWinAndLoses = playerWinAndLoses else { return }
+                self.winsAndLosesLabels.forEach { label in
+                    switch label.tag {
+                    case 0:
+                        if let wins = playerWinAndLoses.win {
+                            label.text = String(wins)
+                        } else {
+                            label.text = "No info"
+                        }
+                    default:
+                        if let loses = playerWinAndLoses.lose {
+                            label.text = String(loses)
+                        } else {
+                            label.text = "No info"
                         }
                     }
-                    self.winsAndLosesSpinners.forEach { $0.stopAnimating() }
                 }
+                self.winsAndLosesSpinners.forEach { $0.stopAnimating() }
+            case .failure(let error):
+                print(error)
+                self.rankSpinners.forEach { $0.stopAnimating() }
             }
+        }
     }
 }

@@ -5,6 +5,7 @@
 //  Created by Dinmukhammed Sagyntkan on 08.04.2022.
 //
 
+import Alamofire
 import Foundation
 
 enum Link: String {
@@ -15,84 +16,45 @@ enum Link: String {
 class NetworkManager {
     
     static let shared = NetworkManager()
+    
     private init() {}
     
-    func fetchPlayers(completion: @escaping (_ proPlayers: [Player]) -> ()) {
-        guard let url = URL(string: Link.proPlayers.rawValue) else { return }
-        
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            guard let data = data else {
-                print(error?.localizedDescription ?? "No error description")
-                return
+    func fetch<T: Decodable>(dataType: T.Type, from url: String, completion: @escaping(Result<T?, Error>) -> Void) {
+        AF.request(url)
+            .validate()
+            .responseJSON { dataResponse in
+                switch dataResponse.result {
+                case .success(let value):
+                    if dataType == [Player].self {
+                        let players = Player.getPlayers(from: value)
+                        completion(.success(players as? T))
+                    } else if dataType == PlayerInfo.self {
+                        let playerInfo = PlayerInfo.getPlayerInfoData(from: value)
+                        completion(.success(playerInfo as? T))
+                    } else if dataType == PlayerWinsAndLoses.self {
+                        let playerWinsAndLoses = PlayerWinsAndLoses.getPlayerWinsAndLosesData(from: value)
+                        completion(.success(playerWinsAndLoses as? T))
+                    } else {
+                        print("There is no such type \(dataType) to conform fetch method")
+                    }
+                case .failure(let error):
+                    completion(.failure(error))
+                }
             }
-            do {
-                let proPlayers = try JSONDecoder().decode([Player].self, from: data)
-                completion(proPlayers)
-            } catch let error {
-                print(error)
-            }
-        }.resume()
     }
     
     func fetchAvatarImages(
-        with proPlayer: Player,
-        completion: @escaping (_ data: Data) -> ()
-    ) {
-        guard let url = URL(string: proPlayer.avatarfull) else { return }
-        
-        URLSession.shared.downloadTask(with: url) { localUrl, _, error in
-            guard let localUrl = localUrl else {
-                print(error?.localizedDescription ?? "No error description")
-                return
-            }
-            do {
-                let data = try Data(contentsOf: localUrl)
-                completion(data)
-            } catch let error {
-                print(error)
-            }
-        }.resume()
-    }
-    
-    func fetchPlayerDetails(
-        with accountId: Int,
-        completion: @escaping (_ playerInfo: PlayerInfo) -> ()
-    ) {
-        let urlString = "\(Link.playerInfo.rawValue)\(accountId)"
-        guard let url = URL(string: urlString) else { return }
-        
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            guard let data = data else {
-                print(error?.localizedDescription ?? "No error description")
-                return
-            }
-            do {
-                let playerInfo = try JSONDecoder().decode(PlayerInfo.self, from: data)
-                completion(playerInfo)
-            } catch let error {
-                print(error.localizedDescription)
-            }
-        }.resume()
-    }
-    
-    func fetchPlayerWinAndLoses(
-        with accountId: Int,
-        completion: @escaping (_ playerWinAndLoses: PlayerWinsAndLoses) -> ()
-    ) {
-        let urlString = "\(Link.playerInfo.rawValue)\(accountId)/wl"
-        guard let url = URL(string: urlString) else { return }
-        
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            guard let data = data else {
-                print(error?.localizedDescription ?? "No error description")
-                return
-            }
-            do {
-                let playerWinAndLoses = try JSONDecoder().decode(PlayerWinsAndLoses.self, from: data)
-                completion(playerWinAndLoses)
-            } catch let error {
-                print(error.localizedDescription)
-            }
-        }.resume()
-    }
+        from url: String,
+        completion: @escaping(Result<Data, Error>) -> Void) {
+            AF.request(url)
+                .validate()
+                .responseData { dataResponse in
+                    switch dataResponse.result {
+                    case .success(let imageData):
+                        completion(.success(imageData))
+                    case .failure(let error):
+                        completion(.failure(error))
+                    }
+                }
+        }
 }

@@ -35,6 +35,7 @@ class PlayersViewController: UIViewController {
         
         searchBar.delegate = self
         filteredPlayers = players
+        
     }
 }
 // MARK: - TableView Delegate, DataSource
@@ -57,12 +58,13 @@ extension PlayersViewController: UITableViewDelegate, UITableViewDataSource {
         let proPlayer = filteredPlayers[indexPath.row]
         
         cell.playerNameLabel.text = proPlayer.personaname
-        cell.playerTeamLabel.text = proPlayer.team_name
-        
-        NetworkManager.shared.fetchAvatarImages(with: proPlayer) { data in
-            let image = self.getImage(from: data)
-            DispatchQueue.main.async {
-                cell.avatarImageView.image = image
+        cell.playerTeamLabel.text = proPlayer.teamName
+        NetworkManager.shared.fetchAvatarImages(from: proPlayer.avatarfull ?? "") { result in
+            switch result {
+            case .success(let imageData):
+                cell.avatarImageView.image = UIImage(data: imageData)
+            case .failure(let error):
+                print(error)
             }
         }
         return cell
@@ -72,6 +74,7 @@ extension PlayersViewController: UITableViewDelegate, UITableViewDataSource {
         searchBar.endEditing(true)
         let proPlayer = filteredPlayers[indexPath.row]
         performSegue(withIdentifier: "showPlayerDetails", sender: proPlayer)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 //MARK: - Navigation
@@ -91,19 +94,18 @@ extension PlayersViewController {
 extension PlayersViewController {
     
     private func getData() {
-        NetworkManager.shared.fetchPlayers { proPlayers in
-            self.players = proPlayers
-            self.filteredPlayers = self.players
-            DispatchQueue.main.async {
-                self.removeLoadingScreen()
-                self.tableView.reloadData()
+        NetworkManager.shared.fetch(dataType: [Player].self, from: Link.proPlayers.rawValue) { result in
+            switch result {
+            case .success(let players):
+                guard let players = players else { return }
+                self.players = players
+                self.filteredPlayers = self.players
+            case .failure(let error):
+                print(error)
             }
+            self.removeLoadingScreen()
+            self.tableView.reloadData()
         }
-    }
-    
-    private func getImage(from data: Data?) -> UIImage? {
-        guard let data = data else { return UIImage(systemName: "picture") }
-        return UIImage(data: data)
     }
 }
 
@@ -122,7 +124,7 @@ extension PlayersViewController: UISearchBarDelegate {
             )
         } else {
             filteredPlayers.forEach { player in
-                if player.personaname.lowercased().contains(searchText.lowercased()) {
+                if player.personaname!.lowercased().contains(searchText.lowercased()) {
                     filteredPlayersList.append(player)
                     filteredPlayers = filteredPlayersList
                 }

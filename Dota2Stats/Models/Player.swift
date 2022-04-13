@@ -6,19 +6,52 @@
 //
 
 struct Player: Decodable {
-    let account_id: Int
-    let personaname: String
-    let avatarfull: String
+    let accountId: Int?
+    let personaname: String?
+    let avatarfull: String?
     let loccountrycode: String?
-    let team_name: String?
+    let teamName: String?
+    
+    init(playerData: [String: Any]) {
+        accountId = playerData["account_id"] as? Int
+        personaname = playerData["personaname"] as? String
+        avatarfull = playerData["avatarfull"] as? String
+        loccountrycode = playerData["loccountrycode"] as? String
+        teamName = playerData["team_name"] as? String
+    }
+    
+    static func getPlayers(from value: Any) -> [Player] {
+        guard let playersData = value as? [[String: Any]] else { return [] }
+        return playersData.compactMap { Player(playerData: $0) }
+    }
 }
 
 struct PlayerInfo: Decodable {
-    let solo_competitive_rank: Int?
-    let leaderboard_rank: Int?
+    let soloCompetitiveRank: Int?
+    let leaderboardRank: Int?
+    
+    init(playerInfoData: [String: Any]) {
+        soloCompetitiveRank = playerInfoData["solo_competitive_rank"] as? Int
+        leaderboardRank = playerInfoData["leaderboard_rank"] as? Int
+    }
+    
+    static func getPlayerInfoData(from value: Any) -> PlayerInfo? {
+        guard let playerInfoData = value as? [String: Any] else { return nil }
+        return PlayerInfo(playerInfoData: playerInfoData)
+    }
 }
 
 struct PlayerWinsAndLoses: Decodable {
     let win: Int?
     let lose: Int?
+    
+    init(playerWinsAndLosesData: [String: Any]) {
+        win = playerWinsAndLosesData["win"] as? Int
+        lose = playerWinsAndLosesData["lose"] as? Int
+    }
+    
+    static func getPlayerWinsAndLosesData(from value: Any) -> PlayerWinsAndLoses? {
+        guard let playerWinsAndLosesData = value as? [String: Any] else { return nil }
+        return PlayerWinsAndLoses(playerWinsAndLosesData: playerWinsAndLosesData)
+    }
 }
